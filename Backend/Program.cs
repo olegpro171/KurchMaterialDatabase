@@ -14,30 +14,9 @@ namespace Backend
 
             isotopeManager.CreateTable();
 
-
-            var testList = isotopeManager.Filter("id", 2);
-            //foreach (var item in testList)
-            //{
-            //    Console.WriteLine(item.ToString());
-            //}
-            Console.WriteLine();
-
-            //var Replace = new Isotope("NEW ISO");
-
-            //isotopeManager.Update(3, Replace);
-
-            //testList = isotopeManager.List();
-            //foreach (var item in testList)
-            //{
-            //    Console.WriteLine(item.ToString());
-            //}
-            //isotopeManager.Delete(3);
-            //testList = isotopeManager.List();
-            //Console.WriteLine("\n\n\n");
-            //testList.ForEach(i => Console.Write("{0}\t", i));
-            //isotopeManager.Dispose();
+            var testList = isotopeManager.RelatedFuel(1);
         }
-
+        
 
         public static void IsotopeInFuel(DatabaseCore database)
         {
@@ -66,6 +45,7 @@ namespace Backend
             //IsotopeInFuel(database);
 
             fuelTest(database);
+            Isotopes(database);
 
         }
     }

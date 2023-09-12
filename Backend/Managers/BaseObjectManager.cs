@@ -255,7 +255,20 @@ namespace Backend.Managers
                 }
                 return resultQueryset;
             }
-
+            if (typeof(R) == typeof(Fuel))
+            {
+                foreach (DataRow row in responceTable.Rows)
+                {
+                    resultQueryset.Data.Add(
+                        new RelatedObjectWrapper<R>(
+                            row.Field<int>("id"),
+                            (R)(object)FuelManager.MapDataRowToObject(row),
+                            row.Field<float>("amount")
+                            )
+                        );
+                }
+                return resultQueryset;
+            }
             throw new NotImplementedException();
         }
 
