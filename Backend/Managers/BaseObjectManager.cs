@@ -1,21 +1,13 @@
 ﻿using Backend.Core;
 using Backend.Domain;
-using Backend.Variables;
-using Microsoft.Win32.SafeHandles;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Mail;
+using Backend.Exceptions;
+using System.Data;
 using System.Reflection;
 using System.Text;
-using System.Data;
-using System.Threading.Tasks;
-
-using Backend.Exceptions;
 
 namespace Backend.Managers
 {
-    public abstract class BaseObjectManager<T> 
+    public abstract class BaseObjectManager<T>
     {
         protected readonly DatabaseCore dbCore;
         protected readonly string tableName;
@@ -27,7 +19,7 @@ namespace Backend.Managers
             this.tableName = tableName;
         }
 
-        protected T MapDataRowToObject(DataTable dataTable, int rowIndex)
+        public static T MapDataRowToObject(DataTable dataTable, int rowIndex)
         {
             if (rowIndex < 0 || rowIndex >= dataTable.Rows.Count)
             {
@@ -37,10 +29,10 @@ namespace Backend.Managers
             DataRow row = dataTable.Rows[rowIndex];
 
             return MapDataRowToObject(row);
-            
+
         }
 
-        protected T MapDataRowToObject(DataRow row)
+        public static T MapDataRowToObject(DataRow row)
         {
             T obj = Activator.CreateInstance<T>();
 
@@ -62,7 +54,7 @@ namespace Backend.Managers
             }
             if (propertiesMapped != propertiesTotal)
             {
-                throw new ObjectMappingException($"Could not map data from table \"{this.tableName}\" to object of type \"{typeof(T).FullName}\"");
+                throw new ObjectMappingException($"Could not map data from table \"{row.Table.TableName}\" to object of type \"{typeof(T).FullName}\"");
             }
 
             return obj;
@@ -83,7 +75,7 @@ namespace Backend.Managers
         }
 
 
-        public virtual ObjectWrapper<T> Get(int id)
+        public virtual Queryset<T> Get(int id)
         {
             string query = $"SELECT * FROM {this.tableName} WHERE id = {id}";
             dbCore.OpenConnection();
@@ -100,13 +92,15 @@ namespace Backend.Managers
             }
             catch (IndexOutOfRangeException)
             {
-                throw new RecordNotFoundException($"Record with id = { id } not present in table \"{this.tableName}\"");
+                throw new RecordNotFoundException($"Record with id = {id} not present in table \"{this.tableName}\"");
             }
 
-            return new ObjectWrapper<T>(row.Field<int>("id"), MapDataRowToObject(row));
+            var resultQueryset = new Queryset<T>();
+            resultQueryset.Data.Add(new ObjectWrapper<T>(row.Field<int>("id"), MapDataRowToObject(row)));
+            return resultQueryset;
         }
 
-        public virtual List<ObjectWrapper<T>> List()
+        public virtual Queryset<T> List()
         {
             string query = $"SELECT * FROM {this.tableName}";
             dbCore.OpenConnection();
@@ -116,13 +110,13 @@ namespace Backend.Managers
             var responceTable = dbCore.ResponceTable;
             responceTable.TableName = this.tableName;
 
-            var ResultList = new List<ObjectWrapper<T>>();
+            var resultQueryset = new Queryset<T>();
 
             foreach (DataRow row in responceTable.Rows)
             {
-                ResultList.Add(new ObjectWrapper<T>(row.Field<int>("id"), MapDataRowToObject(row)));
+                resultQueryset.Data.Add(new ObjectWrapper<T>(row.Field<int>("id"), MapDataRowToObject(row)));
             }
-            return ResultList;
+            return resultQueryset;
         }
 
 
@@ -198,29 +192,71 @@ namespace Backend.Managers
             dbCore.CloseConnection();
         }
 
-        public void Open(ConnectionData connectionData)
+        public virtual Queryset<T> Filter<F>(string colName, F value)
         {
-            try
+            string query;
+            switch (value)
             {
-                dbCore.ConnectionData = connectionData;
-                dbCore.OpenConnection();
-            }
-            catch (System.ArgumentException)
-            {
-                return;
-            }
-            catch
-            {
-                // Other exceptions
-                throw;
+                case string strValue:
+                    query = $"SELECT * FROM {tableName} WHERE LOWER({colName}) LIKE '%{strValue.ToLower()}%'";
+                    break;
+
+                case int intValue:
+                    query = $"SELECT * FROM {tableName} WHERE {colName} = {intValue}";
+                    break;
+
+                case float floatValue:
+                    query = $"SELECT * FROM {tableName} WHERE {colName} = {floatValue}";
+                    break;
+
+                case null:
+                default:
+                    throw new ArgumentException($"Type {typeof(F).FullName} not supported");
             }
 
+            dbCore.OpenConnection();
+            dbCore.ExecuteSQL(query);
+            dbCore.CloseConnection();
 
+            var responceTable = dbCore.ResponceTable;
+            responceTable.TableName = this.tableName;
+            var resultQueryset = new Queryset<T>();
+
+            foreach (DataRow row in responceTable.Rows)
+            {
+                resultQueryset.Data.Add(new ObjectWrapper<T>(row.Field<int>("id"), MapDataRowToObject(row)));
+            }
+
+            return resultQueryset;
         }
 
-        public void Dispose()
+        protected virtual Queryset<R> Related<R>(string query)
         {
+            dbCore.OpenConnection();
+            dbCore.ExecuteSQL(query);
             dbCore.CloseConnection();
+
+            var responceTable = dbCore.ResponceTable;
+            responceTable.TableName = "Inner join";
+
+            var resultQueryset = new Queryset<R>();
+
+            if (typeof(R) == typeof(Isotope))
+            {
+                foreach (DataRow row in responceTable.Rows)
+                {
+                    resultQueryset.Data.Add(
+                        new RelatedObjectWrapper<R>(
+                            row.Field<int>("id"),
+                            (R)(object)IsotopeManager.MapDataRowToObject(row),
+                            row.Field<float>("amount")
+                            )
+                        );
+                }
+                return resultQueryset;
+            }
+
+            throw new NotImplementedException();
         }
 
         private string GetColumnType(Type type)
@@ -243,7 +279,7 @@ namespace Backend.Managers
             }
         }
 
-        public void CreateTable() 
+        public void CreateTable()
         {
             dbCore.OpenConnection();
 

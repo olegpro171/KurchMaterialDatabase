@@ -6,18 +6,18 @@ using System.Threading.Tasks;
 
 namespace Backend.Exceptions
 {
-    public class RecordNotFoundException : Exception
+    public class WrongColumnNameException : Exception
     {
-        public RecordNotFoundException()
+        public WrongColumnNameException()
         {
         }
 
-        public RecordNotFoundException(string message)
+        public WrongColumnNameException(string message)
             : base(message)
         {
         }
 
-        public RecordNotFoundException(string message, Exception innerException)
+        public WrongColumnNameException(string message, Exception innerException)
             : base(message, innerException)
         {
         }

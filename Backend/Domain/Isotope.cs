@@ -21,7 +21,7 @@ namespace Backend.Domain
 
         public override string ToString()
         {
-            return Name;
+            return $"Name={Name}";
         }
     }
 }

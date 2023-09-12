@@ -10,6 +10,6 @@ namespace Backend.Variables
     {
         public const string Isotope = "isotopes";
         public const string Fuel = "fuel_materials";
-        public const string IsotopeInMaterial = "isotope_in_material";
+        public const string IsotopeInFuel = "isotope_in_fuel";
     }
 }

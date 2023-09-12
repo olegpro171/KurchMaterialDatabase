@@ -4,6 +4,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Backend.Exceptions;
 using Npgsql;
 
 
@@ -82,6 +83,17 @@ namespace Backend.Core
                     {
                         return false; // Failure (no rows affected)
                     }
+                }
+            }
+            catch (PostgresException ex)
+            {
+                if (ex.Message.StartsWith("42703:"))
+                {
+                    throw new WrongColumnNameException($"Table does not contain specified column.\nQuery :\"{sql}\".", ex);
+                }
+                else 
+                { 
+                    throw;
                 }
             }
             catch

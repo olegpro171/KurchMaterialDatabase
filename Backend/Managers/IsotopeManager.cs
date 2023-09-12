@@ -8,6 +8,7 @@ using Backend.Domain;
 using Backend.Core;
 using Backend.Managers;
 using System.Data;
+using System.Xml.Linq;
 
 namespace Backend.Managers
 {
@@ -15,27 +16,11 @@ namespace Backend.Managers
     {
         public IsotopeManager(DatabaseCore databaseCore) : base(databaseCore, Variables.TableNames.Isotope)
         {
-            
         }
 
-        public List<ObjectWrapper<Isotope>> filter(string name)
-        {
-            dbCore.OpenConnection();
-
-            string query = $"SELECT * FROM {tableName} WHERE LOWER(name) LIKE '%{name.ToLower()}%'";
-            dbCore.ExecuteSQL(query);
-
-            var responceTable = dbCore.ResponceTable;
-            responceTable.TableName = this.tableName;
-            var ResultList = new List<ObjectWrapper<Isotope>>();
-
-            foreach (DataRow row in responceTable.Rows)
-            {
-                ResultList.Add(new ObjectWrapper<Isotope>(row.Field<int>("id"), MapDataRowToObject(row)));
-            }
-
-            dbCore.CloseConnection();
-            return ResultList;
-        }
+        //public override Queryset<Isotope> RelatedIsotopes(int id, string query)
+        //{
+        //    throw new NotImplementedException();
+        //}
     }
 }

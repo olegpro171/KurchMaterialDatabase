@@ -6,18 +6,18 @@ using System.Threading.Tasks;
 
 namespace Backend.Exceptions
 {
-    public class RecordNotFoundException : Exception
+    public class ValidationException : Exception
     {
-        public RecordNotFoundException()
+        public ValidationException()
         {
         }
 
-        public RecordNotFoundException(string message)
+        public ValidationException(string message)
             : base(message)
         {
         }
 
-        public RecordNotFoundException(string message, Exception innerException)
+        public ValidationException(string message, Exception innerException)
             : base(message, innerException)
         {
         }

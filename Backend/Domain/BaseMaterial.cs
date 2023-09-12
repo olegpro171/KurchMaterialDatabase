@@ -27,5 +27,9 @@ namespace Backend.Domain
             Density = 0.0f;
         }
 
+        public override string ToString()
+        {
+            return $"Name={Name, -16}; Dens={Density:F2}; Desc={Description}";
+        }
     }
 }

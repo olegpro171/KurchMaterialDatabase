@@ -8,18 +8,19 @@ using Backend.Variables;
 
 namespace Backend.Domain
 {
-    public class IsotopeInFuel : BaseManyToMany
+    public class IsotopeInFuel : BaseM2MRelation
     {
-        protected float amount;
-        public readonly static string IsotobeTableName = TableNames.Isotope;
-        public readonly static string FuelTableName = TableNames.Fuel;
-          
-        public float Amount { get {  return amount; } set { amount = value; } }
+        public float Amount { get; set; }
 
 
         public IsotopeInFuel(int IsotopeID, int FuelID, float amount) : base(IsotopeID, FuelID)
         {
-            this.amount = amount;
+            Amount = amount;
+        }
+
+        public IsotopeInFuel() : base()
+        {
+            Amount = 0.0f;
         }
     }
 }
