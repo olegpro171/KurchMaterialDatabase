@@ -35,8 +35,13 @@
             connectionDataMenuItem = new ToolStripMenuItem();
             statusStrip = new StatusStrip();
             toolStripStatusLabel1 = new ToolStripStatusLabel();
+            createButton = new Button();
+            dataGridView = new DataGridView();
+            nameSearchTextBox = new TextBox();
+            nameSearchLabel = new Label();
             menuStrip1.SuspendLayout();
             statusStrip.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dataGridView).BeginInit();
             SuspendLayout();
             // 
             // contextMenuStrip1
@@ -82,20 +87,66 @@
             toolStripStatusLabel1.Size = new Size(118, 17);
             toolStripStatusLabel1.Text = "toolStripStatusLabel1";
             // 
+            // createButton
+            // 
+            createButton.Location = new Point(12, 60);
+            createButton.Name = "createButton";
+            createButton.Size = new Size(75, 23);
+            createButton.TabIndex = 3;
+            createButton.Text = "Создать";
+            createButton.UseVisualStyleBackColor = true;
+            // 
+            // dataGridView
+            // 
+            dataGridView.AllowUserToAddRows = false;
+            dataGridView.AllowUserToDeleteRows = false;
+            dataGridView.AllowUserToResizeRows = false;
+            dataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridView.Location = new Point(93, 60);
+            dataGridView.Name = "dataGridView";
+            dataGridView.ReadOnly = true;
+            dataGridView.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.AutoSizeToDisplayedHeaders;
+            dataGridView.RowTemplate.Height = 25;
+            dataGridView.Size = new Size(681, 285);
+            dataGridView.TabIndex = 4;
+            dataGridView.CellContentClick += dataGridView_CellContentClick;
+            // 
+            // nameSearchTextBox
+            // 
+            nameSearchTextBox.Location = new Point(192, 31);
+            nameSearchTextBox.Name = "nameSearchTextBox";
+            nameSearchTextBox.Size = new Size(582, 23);
+            nameSearchTextBox.TabIndex = 5;
+            nameSearchTextBox.TextChanged += nameSearchTextBox_TextChanged;
+            // 
+            // nameSearchLabel
+            // 
+            nameSearchLabel.AutoSize = true;
+            nameSearchLabel.Location = new Point(93, 34);
+            nameSearchLabel.Name = "nameSearchLabel";
+            nameSearchLabel.Size = new Size(93, 15);
+            nameSearchLabel.TabIndex = 6;
+            nameSearchLabel.Text = "Имя материала";
+            // 
             // FormMain
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(786, 450);
+            Controls.Add(nameSearchLabel);
+            Controls.Add(nameSearchTextBox);
+            Controls.Add(dataGridView);
+            Controls.Add(createButton);
             Controls.Add(statusStrip);
             Controls.Add(menuStrip1);
             Name = "FormMain";
-            Text = "Form1";
+            Text = "MD2";
             Load += FormMain_Load;
             menuStrip1.ResumeLayout(false);
             menuStrip1.PerformLayout();
             statusStrip.ResumeLayout(false);
             statusStrip.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)dataGridView).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -107,5 +158,9 @@
         private ToolStripMenuItem connectionDataMenuItem;
         private StatusStrip statusStrip;
         private ToolStripStatusLabel toolStripStatusLabel1;
+        private Button createButton;
+        private DataGridView dataGridView;
+        private TextBox nameSearchTextBox;
+        private Label nameSearchLabel;
     }
 }
