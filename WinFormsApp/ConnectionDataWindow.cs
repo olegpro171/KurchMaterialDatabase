@@ -15,7 +15,7 @@ namespace WinFormsApp
 {
     public partial class ConnectionDataWindow : Form
     {
-
+        public ConnectionData? ConnectionData { get; set; }
 
         public ConnectionDataWindow()
         {
@@ -65,7 +65,7 @@ namespace WinFormsApp
             if (checkFields())
             {
                 
-                FormMain.ConnectionData = new ConnectionData(
+                ConnectionData = new ConnectionData(
                     hostTextBox.Text,
                     usernameTextBox.Text,
                     passwordTextBox.Text,

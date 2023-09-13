@@ -46,15 +46,18 @@
             // 
             // contextMenuStrip1
             // 
+            contextMenuStrip1.ImageScalingSize = new Size(20, 20);
             contextMenuStrip1.Name = "contextMenuStrip1";
             contextMenuStrip1.Size = new Size(61, 4);
             // 
             // menuStrip1
             // 
+            menuStrip1.ImageScalingSize = new Size(20, 20);
             menuStrip1.Items.AddRange(new ToolStripItem[] { connectionMenuItem });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
-            menuStrip1.Size = new Size(786, 24);
+            menuStrip1.Padding = new Padding(7, 3, 0, 3);
+            menuStrip1.Size = new Size(898, 30);
             menuStrip1.TabIndex = 1;
             menuStrip1.Text = "menuStrip1";
             // 
@@ -62,36 +65,39 @@
             // 
             connectionMenuItem.DropDownItems.AddRange(new ToolStripItem[] { connectionDataMenuItem });
             connectionMenuItem.Name = "connectionMenuItem";
-            connectionMenuItem.Size = new Size(86, 20);
+            connectionMenuItem.Size = new Size(109, 24);
             connectionMenuItem.Text = "Соединение";
             // 
             // connectionDataMenuItem
             // 
             connectionDataMenuItem.Name = "connectionDataMenuItem";
-            connectionDataMenuItem.Size = new Size(185, 22);
+            connectionDataMenuItem.Size = new Size(235, 26);
             connectionDataMenuItem.Text = "Данные соединения";
             connectionDataMenuItem.Click += connectionDataMenuItem_Click;
             // 
             // statusStrip
             // 
+            statusStrip.ImageScalingSize = new Size(20, 20);
             statusStrip.Items.AddRange(new ToolStripItem[] { toolStripStatusLabel1 });
-            statusStrip.Location = new Point(0, 428);
+            statusStrip.Location = new Point(0, 485);
             statusStrip.Name = "statusStrip";
-            statusStrip.Size = new Size(786, 22);
+            statusStrip.Padding = new Padding(1, 0, 16, 0);
+            statusStrip.Size = new Size(898, 26);
             statusStrip.TabIndex = 2;
             statusStrip.Text = "statusStrip1";
             // 
             // toolStripStatusLabel1
             // 
             toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            toolStripStatusLabel1.Size = new Size(118, 17);
+            toolStripStatusLabel1.Size = new Size(151, 20);
             toolStripStatusLabel1.Text = "toolStripStatusLabel1";
             // 
             // createButton
             // 
-            createButton.Location = new Point(12, 60);
+            createButton.Location = new Point(14, 80);
+            createButton.Margin = new Padding(3, 4, 3, 4);
             createButton.Name = "createButton";
-            createButton.Size = new Size(75, 23);
+            createButton.Size = new Size(86, 31);
             createButton.TabIndex = 3;
             createButton.Text = "Создать";
             createButton.UseVisualStyleBackColor = true;
@@ -102,43 +108,46 @@
             dataGridView.AllowUserToDeleteRows = false;
             dataGridView.AllowUserToResizeRows = false;
             dataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView.Location = new Point(93, 60);
+            dataGridView.Location = new Point(106, 80);
+            dataGridView.Margin = new Padding(3, 4, 3, 4);
             dataGridView.Name = "dataGridView";
             dataGridView.ReadOnly = true;
             dataGridView.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.AutoSizeToDisplayedHeaders;
             dataGridView.RowTemplate.Height = 25;
-            dataGridView.Size = new Size(681, 285);
+            dataGridView.Size = new Size(778, 380);
             dataGridView.TabIndex = 4;
             dataGridView.CellContentClick += dataGridView_CellContentClick;
             // 
             // nameSearchTextBox
             // 
-            nameSearchTextBox.Location = new Point(192, 31);
+            nameSearchTextBox.Location = new Point(242, 41);
+            nameSearchTextBox.Margin = new Padding(3, 4, 3, 4);
             nameSearchTextBox.Name = "nameSearchTextBox";
-            nameSearchTextBox.Size = new Size(582, 23);
+            nameSearchTextBox.Size = new Size(642, 27);
             nameSearchTextBox.TabIndex = 5;
             nameSearchTextBox.TextChanged += nameSearchTextBox_TextChanged;
             // 
             // nameSearchLabel
             // 
             nameSearchLabel.AutoSize = true;
-            nameSearchLabel.Location = new Point(93, 34);
+            nameSearchLabel.Location = new Point(106, 45);
             nameSearchLabel.Name = "nameSearchLabel";
-            nameSearchLabel.Size = new Size(93, 15);
+            nameSearchLabel.Size = new Size(118, 20);
             nameSearchLabel.TabIndex = 6;
             nameSearchLabel.Text = "Имя материала";
             // 
             // FormMain
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(786, 450);
+            ClientSize = new Size(898, 511);
             Controls.Add(nameSearchLabel);
             Controls.Add(nameSearchTextBox);
             Controls.Add(dataGridView);
             Controls.Add(createButton);
             Controls.Add(statusStrip);
             Controls.Add(menuStrip1);
+            Margin = new Padding(3, 4, 3, 4);
             Name = "FormMain";
             Text = "MD2";
             Load += FormMain_Load;
