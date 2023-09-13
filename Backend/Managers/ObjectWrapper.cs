@@ -6,22 +6,6 @@ namespace Backend.Managers
     {
         public T Obj { get; }
         public int Id { get; }
-
-        private float amount;
-        public float Amount
-        {
-            get
-            {
-                if (typeof(T) == typeof(Isotope)) return amount;
-                else throw new NotSupportedException("Only Isotope wrappers can have Amount property");
-            }
-
-            set
-            {
-                if (typeof(T) == typeof(Isotope)) amount = value;
-                else throw new NotSupportedException("Only Isotope wrappers can have Amount property");
-            }
-        }
         
 
         public ObjectWrapper(int id, T obj)
