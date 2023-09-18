@@ -165,7 +165,7 @@
             cancelButton.Name = "cancelButton";
             cancelButton.Size = new Size(134, 23);
             cancelButton.TabIndex = 11;
-            cancelButton.Text = "Отмена";
+            cancelButton.Text = "Закрыть";
             cancelButton.UseVisualStyleBackColor = true;
             cancelButton.Click += cancelButton_Click;
             // 
@@ -269,7 +269,7 @@
             Controls.Add(idTextBox);
             FormBorderStyle = FormBorderStyle.FixedSingle;
             Name = "FuelDisplayForm";
-            Text = "FuelDisplayForm";
+            Text = "Материал";
             Load += FuelDisplayForm_Load;
             ((System.ComponentModel.ISupportInitialize)isoGrid).EndInit();
             statusStrip.ResumeLayout(false);

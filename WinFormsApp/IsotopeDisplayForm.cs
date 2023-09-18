@@ -39,6 +39,7 @@ namespace WinFormsApp
             item = isotope.Obj;
         }
 
+
         private void IsotopeDisplayForm_Load(object sender, EventArgs e)
         {
 

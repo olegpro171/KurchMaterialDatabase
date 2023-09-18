@@ -16,10 +16,12 @@ namespace Backend.Managers
 
         public Queryset<Isotope> RelatedIsotopes(int id)
         {
-            string query = @$"SELECT {TableNames.Isotope}.id, {TableNames.Isotope}.name, {TableNames.IsotopeInFuel}.amount
-                              FROM {TableNames.Isotope} 
-                              INNER JOIN {TableNames.IsotopeInFuel} ON {TableNames.Isotope}.id = {TableNames.IsotopeInFuel}.id_1 
-                              WHERE {TableNames.IsotopeInFuel}.id_2 = {id}";
+            string query = 
+@$"SELECT i.id, i.name, iif.amount, iif.id relation_id
+FROM {TableNames.Isotope} i
+INNER JOIN {TableNames.IsotopeInFuel} iif ON i.id = iif.id_1 
+WHERE iif.id_2 = {id}";
+
             return base.Related<Isotope>(query);
         }
 

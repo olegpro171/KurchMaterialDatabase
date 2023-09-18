@@ -13,22 +13,11 @@ namespace WinFormsApp
         private bool isEditingObject;
         private bool densityValid;
 
+        private readonly string originalName;
 
+        private int? idEditing;
 
-        public Fuel Item
-        {
-            get { return item; }
-        }
-        public int? Id
-        {
-            get
-            {
-                if (isEditingObject && uneditedItemWrapper != null)
-                    return uneditedItemWrapper.Id;
-                else
-                    return null;
-            }
-        }
+        private DataTable? isoDataTable;
 
         public FuelDisplayForm()
         {
@@ -38,6 +27,7 @@ namespace WinFormsApp
 
             item = new Fuel();
             densityValid = false;
+            originalName = "Новый материал";
 
             idTextBox.Text = "-авто-";
             idTextBox.Enabled = false;
@@ -47,14 +37,15 @@ namespace WinFormsApp
             deleteButton.Visible = false;
         }
 
-        public FuelDisplayForm(Queryset<Fuel> fuelObjectQueryset, Queryset<Isotope> relatedIsotopes)
+        public FuelDisplayForm(int idToEdit)
         {
             InitializeComponent();
-            this.relatedIsotopes = relatedIsotopes;
-            uneditedItemWrapper = fuelObjectQueryset.Data.FirstOrDefault();
-            if (uneditedItemWrapper != null)
+            idEditing = idToEdit;
+            var itemList = dbConnector.FuelManager.Get(idToEdit).Data.FirstOrDefault();
+            if (itemList != null)
             {
-                item = uneditedItemWrapper.Obj;
+                item = itemList.Obj;
+                originalName = item.Name;
             }
             else
             {
@@ -72,10 +63,6 @@ namespace WinFormsApp
             densErrorLabel.Text = string.Empty;
         }
 
-
-
-
-
         private bool ValidateFields()
         {
             if (item.Name.Length < 1
@@ -89,16 +76,16 @@ namespace WinFormsApp
             return true;
         }
 
-
         private void SetInitialValues()
         {
-            if (uneditedItemWrapper != null)
+            if (idEditing != null)
             {
-                idTextBox.Text = uneditedItemWrapper.Id.ToString();
+                idTextBox.Text = idEditing.ToString();
                 nameTextBox.Text = item.Name;
                 descTextBox.Text = item.Description;
                 densTextBox.Text = item.Density.ToString();
                 colorTextBox.Text = item.Color;
+                SetTableValues();
             }
             else
             {
@@ -108,38 +95,21 @@ namespace WinFormsApp
                 densTextBox.Text = String.Empty;
                 colorTextBox.Text = String.Empty;
             }
-
-            if (isEditingObject && this.relatedIsotopes != null)
-            {
-                var isoTable = new DataTable("Related isotopes");
-
-                isoTable.Columns.Add(new DataColumn("id", typeof(int)));
-                isoTable.Columns.Add(new DataColumn("name", typeof(string)));
-                isoTable.Columns.Add(new DataColumn("concentration", typeof(float)));
-
-                isoTable.Columns[0].Caption = "Номер изотопа";
-                (isoTable.Columns["name"] ?? throw new Exception("Undefined behavior")).Caption = "Название изотопа";
-                (isoTable.Columns["concentration"] ?? throw new Exception("Undefined behavior")).Caption = "Содержание";
-
-                foreach (RelatedObjectWrapper<Isotope> iso in relatedIsotopes.Data)
-                {
-                    var row = isoTable.NewRow();
-                    row["id"] = iso.Id;
-                    row["name"] = iso.Obj.Name;
-                    row["concentration"] = iso.Concentration;
-                    isoTable.Rows.Add(row);
-                }
-
-                isoGrid.DataSource = isoTable.Copy();
-            }
         }
 
+        private void SetTableValues()
+        {
+            if (idEditing != null)
+            {
+                isoDataTable = dbConnector.GetRelatedIsotopesTable((int)idEditing);
+                isoGrid.DataSource = isoDataTable;
+            }
+        }
 
         private void nameTextBox_TextChanged(object sender, EventArgs e)
         {
             item.Name = nameTextBox.Text;
         }
-
 
         private void densTextBox_TextChanged(object sender, EventArgs e)
         {
@@ -166,12 +136,10 @@ namespace WinFormsApp
             }
         }
 
-
         private void descTextBox_TextChanged(object sender, EventArgs e)
         {
             item.Description = descTextBox.Text;
         }
-
 
         private void cancelButton_Click(object sender, EventArgs e)
         {
@@ -179,30 +147,54 @@ namespace WinFormsApp
             Close();
         }
 
-
         private void saveButton_Click(object sender, EventArgs e)
         {
 
-            if (ValidateFields())
-            {
-                DialogResult = DialogResult.OK;
-                Close();
-            }
-            else
+            if (!ValidateFields())
             {
                 statusLabel.Text = "Заполните все поля";
                 SystemSounds.Beep.Play();
+                return;
+            }
+
+            if (idEditing != null)
+            {
+                try
+                {
+                    dbConnector.FuelManager.Update((int)idEditing, item);
+                    DialogResult = DialogResult.OK;
+                    Close();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            else
+            {
+                try
+                {
+                    dbConnector.FuelManager.Create(item);
+                    DialogResult = DialogResult.OK;
+                    Close();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
 
-
         private void isoChangeButton_Click(object sender, EventArgs e)
         {
-            // new window for isotopes
-            var newIsoDialog = new NewIsotopeRelationForm();
-            
-        }
+            if (idEditing == null)
+            { return; }
 
+            var newIsoDialog = new NewIsotopeRelationForm((int)idEditing, true);
+            
+            newIsoDialog.ShowDialog();
+            SetTableValues();
+        }
 
         private void colorSelectButton_Click(object sender, EventArgs e)
         {
@@ -213,7 +205,6 @@ namespace WinFormsApp
             }
         }
 
-
         private static String HexConverter(Color c)
         {
             return $"#{c.R.ToString("X2")}{c.G.ToString("X2")}{c.B.ToString("X2")}";
@@ -221,21 +212,21 @@ namespace WinFormsApp
 
         private void deleteButton_Click(object sender, EventArgs e)
         {
-            if (!isEditingObject || uneditedItemWrapper == null)
+            if (idEditing == null)
             {
                 return;
             }
 
             var messageBoxResponce = MessageBox.Show(
                 caption: "Удаление материала",
-                text: $"Материал {uneditedItemWrapper.Obj.Name}, id = {uneditedItemWrapper.Id} " +
+                text: $"Материал {originalName}, id = {idEditing} " +
                        "будет удален из базы данных.\n\nВы уверены?",
                 buttons: MessageBoxButtons.OKCancel,
                 icon: MessageBoxIcon.Warning
                 );
             if (messageBoxResponce == DialogResult.OK)
             {
-                DialogResult = DialogResult.No; //Used as delete signal
+                dbConnector.FuelManager.Delete((int)idEditing);
                 Close();
             }
         }
@@ -244,23 +235,17 @@ namespace WinFormsApp
         {
             if (e.RowIndex < 0 || e.ColumnIndex < 0) { return; }
 
-            if (relatedIsotopes == null) { return; }
-            if (!isEditingObject || uneditedItemWrapper == null) { return; }
-
-            try
-            {
-                var isoSelected = (RelatedObjectWrapper<Isotope>)relatedIsotopes.Data[e.RowIndex];
-                var editForm = new NewIsotopeRelationForm(uneditedItemWrapper, isoSelected);
-                
-                if (editForm.ShowDialog() == DialogResult.OK)
-                {
-                    var result = editForm.Density;
-                }
-            }
-            catch (IndexOutOfRangeException ex)
+            if (isoDataTable == null)
             {
                 return;
             }
+
+            int relation_id = isoDataTable.Rows[e.RowIndex].Field<int>("relation_id");
+
+            var isoRelationForm = new NewIsotopeRelationForm(relation_id);
+
+            isoRelationForm.ShowDialog();
+            SetTableValues();
         }
     }
 }

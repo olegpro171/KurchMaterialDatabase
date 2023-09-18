@@ -39,6 +39,7 @@
             closeButton = new Button();
             addButton = new Button();
             densErrorLabel = new Label();
+            deleteButton = new Button();
             SuspendLayout();
             // 
             // idLabel
@@ -77,6 +78,8 @@
             // 
             // isotopeBox
             // 
+            isotopeBox.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            isotopeBox.AutoCompleteSource = AutoCompleteSource.ListItems;
             isotopeBox.FormattingEnabled = true;
             isotopeBox.Location = new Point(12, 81);
             isotopeBox.Name = "isotopeBox";
@@ -111,7 +114,7 @@
             // 
             // closeButton
             // 
-            closeButton.Location = new Point(14, 161);
+            closeButton.Location = new Point(12, 186);
             closeButton.Name = "closeButton";
             closeButton.Size = new Size(75, 23);
             closeButton.TabIndex = 8;
@@ -121,7 +124,7 @@
             // 
             // addButton
             // 
-            addButton.Location = new Point(144, 161);
+            addButton.Location = new Point(144, 186);
             addButton.Name = "addButton";
             addButton.Size = new Size(75, 23);
             addButton.TabIndex = 9;
@@ -131,19 +134,33 @@
             // 
             // densErrorLabel
             // 
+            densErrorLabel.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             densErrorLabel.AutoSize = true;
             densErrorLabel.ForeColor = Color.Red;
-            densErrorLabel.Location = new Point(94, 136);
+            densErrorLabel.Location = new Point(53, 136);
             densErrorLabel.Name = "densErrorLabel";
-            densErrorLabel.Size = new Size(38, 15);
+            densErrorLabel.Size = new Size(165, 15);
             densErrorLabel.TabIndex = 10;
-            densErrorLabel.Text = "label1";
+            densErrorLabel.Text = "Ведите корректное значение";
+            densErrorLabel.TextAlign = ContentAlignment.TopRight;
+            // 
+            // deleteButton
+            // 
+            deleteButton.ForeColor = Color.IndianRed;
+            deleteButton.Location = new Point(143, 157);
+            deleteButton.Name = "deleteButton";
+            deleteButton.Size = new Size(75, 23);
+            deleteButton.TabIndex = 11;
+            deleteButton.Text = "Удалить";
+            deleteButton.UseVisualStyleBackColor = true;
+            deleteButton.Click += deleteButton_Click;
             // 
             // NewIsotopeRelationForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(231, 196);
+            ClientSize = new Size(231, 221);
+            Controls.Add(deleteButton);
             Controls.Add(densErrorLabel);
             Controls.Add(addButton);
             Controls.Add(closeButton);
@@ -155,8 +172,9 @@
             Controls.Add(materialIdTextBox);
             Controls.Add(materialNameLabel);
             Controls.Add(idLabel);
+            FormBorderStyle = FormBorderStyle.FixedSingle;
             Name = "NewIsotopeRelationForm";
-            Text = "NewIsotopeRelationForm";
+            Text = "Изотоп";
             Load += NewIsotopeRelationForm_Load;
             ResumeLayout(false);
             PerformLayout();
@@ -175,5 +193,6 @@
         private Button closeButton;
         private Button addButton;
         private Label densErrorLabel;
+        private Button deleteButton;
     }
 }

@@ -87,7 +87,7 @@
             // createToolStripMenuItem
             // 
             createToolStripMenuItem.Name = "createToolStripMenuItem";
-            createToolStripMenuItem.Size = new Size(117, 22);
+            createToolStripMenuItem.Size = new Size(180, 22);
             createToolStripMenuItem.Text = "Создать";
             createToolStripMenuItem.Click += createToolStripMenuItem_Click;
             // 

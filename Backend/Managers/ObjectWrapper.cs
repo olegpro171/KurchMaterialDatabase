@@ -25,9 +25,12 @@ namespace Backend.Managers
     {
         public float Concentration { get; }
 
-        public RelatedObjectWrapper(int id, T obj, float concentration) : base(id, obj)
+        public int Relation_ID { get; }
+
+        public RelatedObjectWrapper(int id, T obj, float concentration, int relation_ID) : base(id, obj)
         {
             Concentration = concentration;
+            Relation_ID = relation_ID;
         }
 
         public override string ToString()

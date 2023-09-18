@@ -249,7 +249,8 @@ namespace Backend.Managers
                         new RelatedObjectWrapper<R>(
                             row.Field<int>("id"),
                             (R)(object)IsotopeManager.MapDataRowToObject(row),
-                            row.Field<float>("amount")
+                            row.Field<float>("amount"),
+                            row.Field<int>("relation_id")
                             )
                         );
                 }
@@ -263,7 +264,8 @@ namespace Backend.Managers
                         new RelatedObjectWrapper<R>(
                             row.Field<int>("id"),
                             (R)(object)FuelManager.MapDataRowToObject(row),
-                            row.Field<float>("amount")
+                            row.Field<float>("amount"),
+                            row.Field<int>("relation_id")
                             )
                         );
                 }
