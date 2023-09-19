@@ -44,7 +44,7 @@
             // idLabel
             // 
             idLabel.AutoSize = true;
-            idLabel.Location = new Point(12, 9);
+            idLabel.Location = new Point(100, 12);
             idLabel.Name = "idLabel";
             idLabel.Size = new Size(18, 15);
             idLabel.TabIndex = 0;
@@ -53,7 +53,7 @@
             // nameLabel
             // 
             nameLabel.AutoSize = true;
-            nameLabel.Location = new Point(12, 32);
+            nameLabel.Location = new Point(12, 53);
             nameLabel.Name = "nameLabel";
             nameLabel.Size = new Size(106, 15);
             nameLabel.TabIndex = 1;
@@ -61,31 +61,31 @@
             // 
             // idTextBox
             // 
-            idTextBox.Location = new Point(36, 6);
+            idTextBox.Location = new Point(124, 9);
             idTextBox.Name = "idTextBox";
             idTextBox.ReadOnly = true;
-            idTextBox.Size = new Size(100, 23);
+            idTextBox.Size = new Size(221, 23);
             idTextBox.TabIndex = 2;
             // 
             // nameTextBox
             // 
-            nameTextBox.Location = new Point(12, 50);
+            nameTextBox.Location = new Point(124, 50);
             nameTextBox.Name = "nameTextBox";
-            nameTextBox.Size = new Size(328, 23);
+            nameTextBox.Size = new Size(221, 23);
             nameTextBox.TabIndex = 3;
             // 
             // closeButton
             // 
-            closeButton.Location = new Point(12, 90);
+            closeButton.Location = new Point(12, 191);
             closeButton.Name = "closeButton";
-            closeButton.Size = new Size(98, 23);
+            closeButton.Size = new Size(115, 23);
             closeButton.TabIndex = 4;
             closeButton.Text = "Закрыть";
             closeButton.UseVisualStyleBackColor = true;
             // 
             // saveButton
             // 
-            saveButton.Location = new Point(225, 90);
+            saveButton.Location = new Point(230, 191);
             saveButton.Name = "saveButton";
             saveButton.Size = new Size(115, 23);
             saveButton.TabIndex = 5;
@@ -95,9 +95,9 @@
             // deleteButton
             // 
             deleteButton.ForeColor = Color.IndianRed;
-            deleteButton.Location = new Point(116, 90);
+            deleteButton.Location = new Point(230, 162);
             deleteButton.Name = "deleteButton";
-            deleteButton.Size = new Size(103, 23);
+            deleteButton.Size = new Size(115, 23);
             deleteButton.TabIndex = 6;
             deleteButton.Text = "Удалить изотоп";
             deleteButton.UseVisualStyleBackColor = true;
@@ -105,9 +105,9 @@
             // statusStrip
             // 
             statusStrip.Items.AddRange(new ToolStripItem[] { statusLabel });
-            statusStrip.Location = new Point(0, 123);
+            statusStrip.Location = new Point(0, 217);
             statusStrip.Name = "statusStrip";
-            statusStrip.Size = new Size(352, 22);
+            statusStrip.Size = new Size(357, 22);
             statusStrip.SizingGrip = false;
             statusStrip.TabIndex = 7;
             statusStrip.Text = "statusStrip1";
@@ -125,7 +125,7 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             CancelButton = closeButton;
-            ClientSize = new Size(352, 145);
+            ClientSize = new Size(357, 239);
             Controls.Add(statusStrip);
             Controls.Add(deleteButton);
             Controls.Add(saveButton);

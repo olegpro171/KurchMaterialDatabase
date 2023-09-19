@@ -34,8 +34,8 @@ namespace WinFormsApp
 
             allIsotopes = dbConnector.IsotopeManager.List();
             SetInitialValuesCreate();
-
         }
+
 
 #pragma warning disable CS8618 // Игнорирование поля item не допускаещего NULL (есть обработка)
         public NewIsotopeRelationForm(int relation_id)

@@ -6,9 +6,6 @@ using Microsoft.Win32;
 using WinFormsApp.Exceptions;
 
 
-// TO DO: Запретить создание одинаковых отношений изотопов к материалам
-
-
 namespace WinFormsApp
 {
     public partial class FormMain : Form
@@ -173,17 +170,21 @@ namespace WinFormsApp
         {
             if (e.RowIndex < 0 || e.ColumnIndex < 0) { return; }
 
-            if (SelectedTable != dbConnector.Table.FuelMaterials) { return; }
-
-
             var id = (int)dataGridView.Rows[e.RowIndex].Cells["id"].Value;
+            
+          
 
             try
             {
-                var detailWin = new FuelDisplayForm(id);
+                var detailWin;
+
+                if (SelectedTable == dbConnector.Table.FuelMaterials)
+                    detailWin = new FuelDisplayForm(id);
+                else if (SelectedTable == dbConnector.Table.Isotopes)
+                    detailWin = new IsotopeDisplayForm(id);
+
                 detailWin.ShowDialog();
                 UpdateDataGrid();
-
             }
             catch (RecordNotFoundException ex)
             {
