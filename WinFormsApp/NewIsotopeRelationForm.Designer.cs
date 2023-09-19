@@ -75,7 +75,7 @@
             materialNameTextBox.Margin = new Padding(3, 4, 3, 4);
             materialNameTextBox.Name = "materialNameTextBox";
             materialNameTextBox.ReadOnly = true;
-            materialNameTextBox.Size = new Size(114, 27);
+            materialNameTextBox.Size = new Size(187, 27);
             materialNameTextBox.TabIndex = 3;
             // 
             // isotopeBox
@@ -86,7 +86,7 @@
             isotopeBox.Location = new Point(14, 108);
             isotopeBox.Margin = new Padding(3, 4, 3, 4);
             isotopeBox.Name = "isotopeBox";
-            isotopeBox.Size = new Size(235, 28);
+            isotopeBox.Size = new Size(308, 28);
             isotopeBox.TabIndex = 4;
             isotopeBox.SelectedIndexChanged += isotopeBox_SelectedIndexChanged;
             // 
@@ -104,7 +104,7 @@
             densityBox.Location = new Point(107, 147);
             densityBox.Margin = new Padding(3, 4, 3, 4);
             densityBox.Name = "densityBox";
-            densityBox.Size = new Size(141, 27);
+            densityBox.Size = new Size(215, 27);
             densityBox.TabIndex = 6;
             densityBox.TextChanged += densityBox_TextChanged;
             // 
@@ -119,10 +119,10 @@
             // 
             // closeButton
             // 
-            closeButton.Location = new Point(14, 248);
+            closeButton.Location = new Point(14, 251);
             closeButton.Margin = new Padding(3, 4, 3, 4);
             closeButton.Name = "closeButton";
-            closeButton.Size = new Size(86, 31);
+            closeButton.Size = new Size(114, 31);
             closeButton.TabIndex = 8;
             closeButton.Text = "Закрыть";
             closeButton.UseVisualStyleBackColor = true;
@@ -130,10 +130,10 @@
             // 
             // addButton
             // 
-            addButton.Location = new Point(165, 248);
+            addButton.Location = new Point(211, 251);
             addButton.Margin = new Padding(3, 4, 3, 4);
             addButton.Name = "addButton";
-            addButton.Size = new Size(86, 31);
+            addButton.Size = new Size(109, 31);
             addButton.TabIndex = 9;
             addButton.Text = "Добавить";
             addButton.UseVisualStyleBackColor = true;
@@ -141,10 +141,10 @@
             // 
             // densErrorLabel
             // 
-            densErrorLabel.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            densErrorLabel.Anchor = AnchorStyles.Right;
             densErrorLabel.AutoSize = true;
             densErrorLabel.ForeColor = Color.Red;
-            densErrorLabel.Location = new Point(61, 181);
+            densErrorLabel.Location = new Point(110, 178);
             densErrorLabel.Name = "densErrorLabel";
             densErrorLabel.Size = new Size(212, 20);
             densErrorLabel.TabIndex = 10;
@@ -154,10 +154,10 @@
             // deleteButton
             // 
             deleteButton.ForeColor = Color.IndianRed;
-            deleteButton.Location = new Point(163, 209);
+            deleteButton.Location = new Point(211, 212);
             deleteButton.Margin = new Padding(3, 4, 3, 4);
             deleteButton.Name = "deleteButton";
-            deleteButton.Size = new Size(86, 31);
+            deleteButton.Size = new Size(111, 31);
             deleteButton.TabIndex = 11;
             deleteButton.Text = "Удалить";
             deleteButton.UseVisualStyleBackColor = true;
@@ -167,7 +167,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(264, 295);
+            ClientSize = new Size(338, 295);
             Controls.Add(deleteButton);
             Controls.Add(densErrorLabel);
             Controls.Add(addButton);

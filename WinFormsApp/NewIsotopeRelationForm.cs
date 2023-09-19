@@ -278,7 +278,8 @@ namespace WinFormsApp
             }
 
             var dialogResult = MessageBox.Show(
-                text: $"Вы собираетесь удалить отношение изотопа {iso.Obj.Name} к материалу {fuel.Obj.Name}.\n\n" +
+                text: $"Вы собираетесь удалить отношение изотопа {iso.Obj.Name} к материалу {fuel.Obj.Name}. " +
+                $"Изменение бызв данных будет применено немедлено.\n\n" +
                 $"Нажмите \"ОК\", чтобы продолжить.",
                 caption: "Удаление отношения",
                 icon: MessageBoxIcon.Asterisk,

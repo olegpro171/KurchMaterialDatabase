@@ -224,12 +224,13 @@ namespace WinFormsApp
             }
 
             var messageBoxResponce = MessageBox.Show(
+                text: $"Вы собираетесь удалить материал {originalName}. " +
+                $"Изменение данных будет применено немедлено.\n\n" +
+                $"Нажмите \"ОК\", чтобы продолжить.",
                 caption: "Удаление материала",
-                text: $"Материал {originalName}, id = {idEditing} " +
-                       "будет удален из базы данных.\n\nВы уверены?",
-                buttons: MessageBoxButtons.OKCancel,
-                icon: MessageBoxIcon.Warning
-                );
+                icon: MessageBoxIcon.Asterisk,
+                buttons: MessageBoxButtons.OKCancel);
+
             if (messageBoxResponce == DialogResult.OK)
             {
                 dbConnector.FuelManager.Delete((int)idEditing);

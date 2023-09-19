@@ -2,6 +2,7 @@ using Backend.Core;
 using Backend.Domain;
 using Backend.Exceptions;
 using Backend.Managers;
+using Microsoft.Win32;
 using WinFormsApp.Exceptions;
 
 
@@ -103,6 +104,12 @@ namespace WinFormsApp
         {
             toolStripStatusLabel1.Text = "Укажите данные для подключения";
             materialsToolStripMenuItem.Enabled = false;
+
+            //var postgres = Registry.CurrentUser.OpenSubKey(@"Software\pgadmin");
+            //if (postgres == null)
+            //{
+                
+            //}
         }
 
         private void connectionDataMenuItem_Click(object sender, EventArgs e)
@@ -141,7 +148,7 @@ namespace WinFormsApp
 
                     if (ex.Message.StartsWith("CD3:"))
                     {
-                        toolStripStatusLabel1.Text = "Ошибка подключения: неверно хост";
+                        toolStripStatusLabel1.Text = "Ошибка подключения: указанный хост недоступен";
                         return;
                     }
                 }
