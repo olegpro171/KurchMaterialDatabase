@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ConnectionDataWindow));
             databaseTextBox = new TextBox();
             databaseLabel = new Label();
             hostLabel = new Label();
@@ -49,7 +50,7 @@
             databaseTextBox.Name = "databaseTextBox";
             databaseTextBox.PlaceholderText = "postgres";
             databaseTextBox.Size = new Size(155, 23);
-            databaseTextBox.TabIndex = 0;
+            databaseTextBox.TabIndex = 100;
             databaseTextBox.Text = "postgres";
             databaseTextBox.TextChanged += databaseTextBox_TextChanged;
             // 
@@ -95,7 +96,7 @@
             hostTextBox.Name = "hostTextBox";
             hostTextBox.PlaceholderText = "localhost";
             hostTextBox.Size = new Size(155, 23);
-            hostTextBox.TabIndex = 5;
+            hostTextBox.TabIndex = 200;
             hostTextBox.Text = "localhost";
             hostTextBox.TextChanged += hostTextBox_TextChanged;
             // 
@@ -105,7 +106,7 @@
             passwordTextBox.Name = "passwordTextBox";
             passwordTextBox.PasswordChar = '*';
             passwordTextBox.Size = new Size(155, 23);
-            passwordTextBox.TabIndex = 6;
+            passwordTextBox.TabIndex = 400;
             passwordTextBox.Text = "1";
             passwordTextBox.TextChanged += passwordTextChanged;
             // 
@@ -115,7 +116,7 @@
             usernameTextBox.Name = "usernameTextBox";
             usernameTextBox.PlaceholderText = "postgres";
             usernameTextBox.Size = new Size(155, 23);
-            usernameTextBox.TabIndex = 7;
+            usernameTextBox.TabIndex = 300;
             usernameTextBox.Text = "postgres";
             usernameTextBox.TextChanged += usernameTextBox_TextChanged;
             // 
@@ -124,7 +125,7 @@
             submitButton.Location = new Point(228, 112);
             submitButton.Name = "submitButton";
             submitButton.Size = new Size(100, 23);
-            submitButton.TabIndex = 8;
+            submitButton.TabIndex = 500;
             submitButton.Text = "Задать";
             submitButton.UseVisualStyleBackColor = true;
             submitButton.Click += submitButton_Click;
@@ -134,7 +135,7 @@
             cancelButton.Location = new Point(122, 112);
             cancelButton.Name = "cancelButton";
             cancelButton.Size = new Size(100, 23);
-            cancelButton.TabIndex = 9;
+            cancelButton.TabIndex = 600;
             cancelButton.Text = "Отмена";
             cancelButton.UseVisualStyleBackColor = true;
             cancelButton.Click += cancelButton_Click;
@@ -156,8 +157,10 @@
             // 
             // ConnectionDataWindow
             // 
+            AcceptButton = submitButton;
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            CancelButton = cancelButton;
             ClientSize = new Size(341, 170);
             Controls.Add(statusStrip);
             Controls.Add(cancelButton);
@@ -171,6 +174,7 @@
             Controls.Add(databaseLabel);
             Controls.Add(databaseTextBox);
             FormBorderStyle = FormBorderStyle.FixedSingle;
+            Icon = (Icon)resources.GetObject("$this.Icon");
             MaximizeBox = false;
             Name = "ConnectionDataWindow";
             Text = "Параметры соединения";

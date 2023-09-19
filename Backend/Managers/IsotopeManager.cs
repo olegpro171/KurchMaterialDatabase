@@ -16,7 +16,7 @@ namespace Backend.Managers
 {
     public class IsotopeManager : BaseObjectManager<Isotope>, IIsotopeManager
     {
-        public IsotopeManager(DatabaseCore databaseCore) : base(databaseCore, Variables.TableNames.Isotope)
+        public IsotopeManager(IDatabaseCore databaseCore) : base(databaseCore, Variables.TableNames.Isotope)
         {
         }
 

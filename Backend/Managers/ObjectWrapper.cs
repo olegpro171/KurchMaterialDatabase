@@ -7,7 +7,6 @@ namespace Backend.Managers
         public T Obj { get; }
         public int Id { get; }
         
-
         public ObjectWrapper(int id, T obj)
         {
             Id = id;

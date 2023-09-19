@@ -1,19 +1,21 @@
 ﻿using Backend.Core;
 using Backend.Domain;
 using Backend.Exceptions;
+using Backend.Interfaces;
 using System.Data;
 using System.Reflection;
 using System.Text;
+
 
 namespace Backend.Managers
 {
     public abstract class BaseObjectManager<T>
     {
-        protected readonly DatabaseCore dbCore;
+        protected readonly IDatabaseCore dbCore;
         protected readonly string tableName;
 
 
-        public BaseObjectManager(DatabaseCore databaseCore, string tableName)
+        public BaseObjectManager(IDatabaseCore databaseCore, string tableName)
         {
             this.dbCore = databaseCore;
             this.tableName = tableName;

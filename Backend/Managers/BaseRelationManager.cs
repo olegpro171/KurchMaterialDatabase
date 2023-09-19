@@ -1,4 +1,5 @@
 ﻿using Backend.Core;
+using Backend.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +13,7 @@ namespace Backend.Managers
         public string RelTableName_1 { get; set; }
         public string RelTableName_2 { get; set; }
 
-        public BaseRelationManager(DatabaseCore databaseCore, string tableName, string relTableName_1, string relTableName_2)
+        public BaseRelationManager(IDatabaseCore databaseCore, string tableName, string relTableName_1, string relTableName_2)
             : base(databaseCore, tableName)
         {
             RelTableName_1 = relTableName_1;

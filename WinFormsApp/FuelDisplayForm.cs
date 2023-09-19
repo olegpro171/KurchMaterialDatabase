@@ -7,22 +7,13 @@ namespace WinFormsApp
 {
     public partial class FuelDisplayForm : Form
     {
-#pragma warning disable CS0169 // Поле "FuelDisplayForm.relatedIsotopes" никогда не используется.
         private Queryset<Isotope>? relatedIsotopes;
-#pragma warning restore CS0169 // Поле "FuelDisplayForm.relatedIsotopes" никогда не используется.
-#pragma warning disable CS0169 // Поле "FuelDisplayForm.uneditedItemWrapper" никогда не используется.
         private ObjectWrapper<Fuel>? uneditedItemWrapper;
-#pragma warning restore CS0169 // Поле "FuelDisplayForm.uneditedItemWrapper" никогда не используется.
         private Fuel item;
-#pragma warning disable CS0414 // Полю "FuelDisplayForm.isEditingObject" присвоено значение, но оно ни разу не использовано.
         private bool isEditingObject;
-#pragma warning restore CS0414 // Полю "FuelDisplayForm.isEditingObject" присвоено значение, но оно ни разу не использовано.
         private bool densityValid;
-
         private readonly string originalName;
-
-        private int? idEditing;
-
+        private readonly int? idEditing;
         private DataTable? isoDataTable;
 
         public FuelDisplayForm()
@@ -41,6 +32,11 @@ namespace WinFormsApp
 
             deleteButton.Enabled = false;
             deleteButton.Visible = false;
+
+            isoGrid.Enabled = false;
+            isoGrid.Visible = false;
+            isoChangeButton.Enabled = false;
+            isoChangeButton.Visible = false;
         }
 
         public FuelDisplayForm(int idToEdit)
@@ -109,6 +105,9 @@ namespace WinFormsApp
             {
                 isoDataTable = dbConnector.GetRelatedIsotopesTable((int)idEditing);
                 isoGrid.DataSource = isoDataTable;
+                isoGrid.Columns[0].HeaderText = "Изотоп";
+                isoGrid.Columns[1].HeaderText = "% содерж.";
+
             }
         }
 
@@ -197,7 +196,7 @@ namespace WinFormsApp
             { return; }
 
             var newIsoDialog = new NewIsotopeRelationForm((int)idEditing, true);
-            
+
             newIsoDialog.ShowDialog();
             SetTableValues();
         }

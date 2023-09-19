@@ -10,6 +10,9 @@ using System.Threading.Tasks;
 using System.Reflection;
 using System.Windows.Forms;
 using Backend.Domain;
+using Backend.Interfaces;
+using Backend.Factory;
+
 
 namespace WinFormsApp
 {
@@ -35,10 +38,10 @@ namespace WinFormsApp
             set { _searchString = value; }
         }
 
-        public static DatabaseCore dbCore;
-        public static FuelManager FuelManager;
-        public static IsotopeManager IsotopeManager;
-        public static IsotopeInFuelManager IsotopeInFuelManager;
+        public static IDatabaseCore dbCore;
+        public static IFuelManager FuelManager;
+        public static IIsotopeManager IsotopeManager;
+        public static IIsotopeInFuelManager IsotopeInFuelManager;
 
 
         public enum Table
@@ -50,11 +53,11 @@ namespace WinFormsApp
 
         static dbConnector()
         {
-            dbCore = new DatabaseCore();
+            dbCore = BackendFactory.GetDatabaseCore();
 
-            FuelManager = new FuelManager(dbCore);
-            IsotopeManager = new IsotopeManager(dbCore);
-            IsotopeInFuelManager = new IsotopeInFuelManager(dbCore);
+            FuelManager = BackendFactory.GetFuelManager(dbCore);
+            IsotopeManager = BackendFactory.GetIsotopeManager(dbCore);
+            IsotopeInFuelManager = BackendFactory.GetIsotopeInFuelManager(dbCore);
 
             _searchString = string.Empty;
         }
@@ -104,7 +107,18 @@ namespace WinFormsApp
                     _lastOperationSuccesful = true;
                 }
 
-                return dbCore.ResponceTable;
+
+                var responceTable = dbCore.ResponceTable;
+
+                try
+                {
+#pragma warning disable CS8602 // Игнорирование "вероятного разыменования пустой ссылки" (есть обработка)
+                    responceTable.Columns["color"].ColumnMapping = MappingType.Hidden;
+#pragma warning restore CS8602
+                }
+                catch (NullReferenceException) { }
+
+                return responceTable;
 
                 throw new ArgumentException("Invalid argument");
             }
@@ -131,14 +145,13 @@ namespace WinFormsApp
 
             var isoTable = new DataTable("Related isotopes");
 
+
+
             isoTable.Columns.Add(new DataColumn("relation_id", typeof(int)));
             isoTable.Columns.Add(new DataColumn("id", typeof(int)));
             isoTable.Columns.Add(new DataColumn("name", typeof(string)));
             isoTable.Columns.Add(new DataColumn("concentration", typeof(float)));
 
-            isoTable.Columns[0].Caption = "Номер изотопа";
-            (isoTable.Columns["name"] ?? throw new Exception("Undefined behavior")).Caption = "Название изотопа";
-            (isoTable.Columns["concentration"] ?? throw new Exception("Undefined behavior")).Caption = "Содержание";
 
             foreach (RelatedObjectWrapper<Isotope> iso in isotopes.Data)
             {
@@ -150,6 +163,8 @@ namespace WinFormsApp
                 isoTable.Rows.Add(row);
             }
             isoTable.Columns[0].ColumnMapping = MappingType.Hidden;
+            isoTable.Columns[1].ColumnMapping = MappingType.Hidden;
+
 
             return isoTable.Copy();
         }

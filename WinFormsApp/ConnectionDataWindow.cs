@@ -64,7 +64,7 @@ namespace WinFormsApp
         {
             if (checkFields())
             {
-                
+
                 ConnectionData = new ConnectionData(
                     hostTextBox.Text,
                     usernameTextBox.Text,

@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FuelDisplayForm));
             idTextBox = new TextBox();
             idLabel = new Label();
             nameLabel = new Label();
@@ -50,6 +51,7 @@
             colorTextBox = new TextBox();
             colorLabel = new Label();
             deleteButton = new Button();
+            label1 = new Label();
             ((System.ComponentModel.ISupportInitialize)isoGrid).BeginInit();
             statusStrip.SuspendLayout();
             SuspendLayout();
@@ -60,7 +62,7 @@
             idTextBox.Name = "idTextBox";
             idTextBox.ReadOnly = true;
             idTextBox.Size = new Size(100, 23);
-            idTextBox.TabIndex = 0;
+            idTextBox.TabIndex = 9999;
             // 
             // idLabel
             // 
@@ -112,7 +114,7 @@
             nameTextBox.Location = new Point(217, 6);
             nameTextBox.Name = "nameTextBox";
             nameTextBox.Size = new Size(186, 23);
-            nameTextBox.TabIndex = 6;
+            nameTextBox.TabIndex = 100;
             nameTextBox.TextChanged += nameTextBox_TextChanged;
             // 
             // descTextBox
@@ -122,7 +124,7 @@
             descTextBox.Name = "descTextBox";
             descTextBox.ScrollBars = ScrollBars.Vertical;
             descTextBox.Size = new Size(391, 111);
-            descTextBox.TabIndex = 7;
+            descTextBox.TabIndex = 300;
             descTextBox.TextChanged += descTextBox_TextChanged;
             // 
             // densTextBox
@@ -130,7 +132,7 @@
             densTextBox.Location = new Point(217, 35);
             densTextBox.Name = "densTextBox";
             densTextBox.Size = new Size(186, 23);
-            densTextBox.TabIndex = 8;
+            densTextBox.TabIndex = 200;
             densTextBox.TextChanged += densTextBox_TextChanged;
             // 
             // isoGrid
@@ -146,7 +148,7 @@
             isoGrid.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.AutoSizeToDisplayedHeaders;
             isoGrid.RowTemplate.Height = 25;
             isoGrid.Size = new Size(391, 184);
-            isoGrid.TabIndex = 9;
+            isoGrid.TabIndex = 9999;
             isoGrid.CellClick += isoGrid_CellClick;
             // 
             // saveButton
@@ -154,7 +156,7 @@
             saveButton.Location = new Point(269, 473);
             saveButton.Name = "saveButton";
             saveButton.Size = new Size(134, 23);
-            saveButton.TabIndex = 10;
+            saveButton.TabIndex = 400;
             saveButton.Text = "Сохранить";
             saveButton.UseVisualStyleBackColor = true;
             saveButton.Click += saveButton_Click;
@@ -164,7 +166,7 @@
             cancelButton.Location = new Point(12, 473);
             cancelButton.Name = "cancelButton";
             cancelButton.Size = new Size(134, 23);
-            cancelButton.TabIndex = 11;
+            cancelButton.TabIndex = 500;
             cancelButton.Text = "Закрыть";
             cancelButton.UseVisualStyleBackColor = true;
             cancelButton.Click += cancelButton_Click;
@@ -174,7 +176,7 @@
             isoChangeButton.Location = new Point(12, 444);
             isoChangeButton.Name = "isoChangeButton";
             isoChangeButton.Size = new Size(134, 23);
-            isoChangeButton.TabIndex = 12;
+            isoChangeButton.TabIndex = 600;
             isoChangeButton.Text = "Добавить изотоп";
             isoChangeButton.UseVisualStyleBackColor = true;
             isoChangeButton.Click += isoChangeButton_Click;
@@ -210,7 +212,7 @@
             colorSelectButton.Location = new Point(323, 79);
             colorSelectButton.Name = "colorSelectButton";
             colorSelectButton.Size = new Size(80, 23);
-            colorSelectButton.TabIndex = 15;
+            colorSelectButton.TabIndex = 350;
             colorSelectButton.Text = "Выбрать цвет";
             colorSelectButton.UseVisualStyleBackColor = true;
             colorSelectButton.Click += colorSelectButton_Click;
@@ -221,7 +223,7 @@
             colorTextBox.Name = "colorTextBox";
             colorTextBox.ReadOnly = true;
             colorTextBox.Size = new Size(100, 23);
-            colorTextBox.TabIndex = 16;
+            colorTextBox.TabIndex = 9999;
             // 
             // colorLabel
             // 
@@ -238,15 +240,26 @@
             deleteButton.Location = new Point(269, 444);
             deleteButton.Name = "deleteButton";
             deleteButton.Size = new Size(134, 23);
-            deleteButton.TabIndex = 18;
+            deleteButton.TabIndex = 700;
             deleteButton.Text = "Удалить материал";
             deleteButton.UseVisualStyleBackColor = true;
             deleteButton.Click += deleteButton_Click;
             // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Location = new Point(119, 321);
+            label1.Name = "label1";
+            label1.Size = new Size(183, 45);
+            label1.TabIndex = 19;
+            label1.Text = "Добавление изотопов доступно\r\nпри редактировании материала\r\n\r\n";
+            // 
             // FuelDisplayForm
             // 
+            AcceptButton = saveButton;
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            CancelButton = cancelButton;
             ClientSize = new Size(415, 521);
             Controls.Add(deleteButton);
             Controls.Add(colorLabel);
@@ -267,7 +280,10 @@
             Controls.Add(nameLabel);
             Controls.Add(idLabel);
             Controls.Add(idTextBox);
+            Controls.Add(label1);
             FormBorderStyle = FormBorderStyle.FixedSingle;
+            Icon = (Icon)resources.GetObject("$this.Icon");
+            MaximizeBox = false;
             Name = "FuelDisplayForm";
             Text = "Материал";
             Load += FuelDisplayForm_Load;
@@ -302,5 +318,6 @@
         private TextBox colorTextBox;
         private Label colorLabel;
         private Button deleteButton;
+        private Label label1;
     }
 }

@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(IsotopeDisplayForm));
             idLabel = new Label();
             nameLabel = new Label();
             idTextBox = new TextBox();
@@ -120,8 +121,10 @@
             // 
             // IsotopeDisplayForm
             // 
+            AcceptButton = saveButton;
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            CancelButton = closeButton;
             ClientSize = new Size(352, 145);
             Controls.Add(statusStrip);
             Controls.Add(deleteButton);
@@ -132,6 +135,8 @@
             Controls.Add(nameLabel);
             Controls.Add(idLabel);
             FormBorderStyle = FormBorderStyle.FixedSingle;
+            Icon = (Icon)resources.GetObject("$this.Icon");
+            MaximizeBox = false;
             Name = "IsotopeDisplayForm";
             Text = "Изотоп";
             Load += IsotopeDisplayForm_Load;

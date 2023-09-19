@@ -8,13 +8,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data;
+using Backend.Interfaces;
 
 namespace Backend.Managers
 {
-    public class IsotopeInFuelManager : BaseRelationManager<IsotopeInFuel>
+    public class IsotopeInFuelManager : BaseRelationManager<IsotopeInFuel>, IIsotopeInFuelManager
     {
 
-        public IsotopeInFuelManager(DatabaseCore databaseCore)
+        public IsotopeInFuelManager(IDatabaseCore databaseCore)
             : base(databaseCore, TableNames.IsotopeInFuel, TableNames.Isotope, TableNames.Fuel) { }
 
         public override void Validate(IsotopeInFuel obj)

@@ -5,12 +5,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Backend.Exceptions;
+using Backend.Interfaces;
 using Npgsql;
 
 
 namespace Backend.Core
 {
-    public class DatabaseCore
+    public class DatabaseCore : IDatabaseCore
     {
         // Npgsql
         private NpgsqlConnection conn;
@@ -30,6 +31,14 @@ namespace Backend.Core
             conn = new NpgsqlConnection();
             cmd = new NpgsqlCommand();
             dataTable = new DataTable();
+        }
+
+        public DatabaseCore(ConnectionData connectionData)
+        {
+            conn = new NpgsqlConnection();
+            cmd = new NpgsqlCommand();
+            dataTable = new DataTable();
+            this.connectionData = connectionData;
         }
 
         // Methods

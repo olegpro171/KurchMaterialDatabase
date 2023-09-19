@@ -7,7 +7,7 @@ namespace Backend.Managers
 {
     public class FuelManager : BaseObjectManager<Fuel>, IFuelManager
     {
-        public FuelManager(DatabaseCore databaseCore) : base(databaseCore, TableNames.Fuel) { }
+        public FuelManager(IDatabaseCore databaseCore) : base(databaseCore, TableNames.Fuel) { }
 
 
         protected override Queryset<R> Related<R>(string query)

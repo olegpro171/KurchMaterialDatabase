@@ -77,6 +77,13 @@ namespace WinFormsApp
             try
             {
                 dataGridView.DataSource = dbConnector.GetMainTable(SelectedTable);
+                dataGridView.Columns["id"].Width = 50;
+                dataGridView.Columns["name"].Width = 200;
+                dataGridView.Columns["density"].Width = 75;
+                dataGridView.Columns["name"].HeaderText = "Материал";
+                dataGridView.Columns["description"].HeaderText = "Описание";
+                dataGridView.Columns["density"].HeaderText = "Плотность";
+
             }
 
             catch (ArgumentException)
@@ -108,7 +115,7 @@ namespace WinFormsApp
             //var postgres = Registry.CurrentUser.OpenSubKey(@"Software\pgadmin");
             //if (postgres == null)
             //{
-                
+
             //}
         }
 
@@ -169,7 +176,7 @@ namespace WinFormsApp
             if (SelectedTable != dbConnector.Table.FuelMaterials) { return; }
 
 
-            var id = (int)dataGridView.Rows[e.RowIndex].Cells[0].Value;
+            var id = (int)dataGridView.Rows[e.RowIndex].Cells["id"].Value;
 
             try
             {
@@ -207,6 +214,13 @@ namespace WinFormsApp
             {
                 SelectedTable = dbConnector.Table.Isotopes;
             }
+        }
+
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var aboutWin = new About();
+
+            aboutWin.Show();
         }
     }
 }

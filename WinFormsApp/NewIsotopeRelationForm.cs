@@ -2,6 +2,7 @@
 using Backend.Exceptions;
 using Backend.Managers;
 using System.Media;
+using System.Net.Http.Headers;
 
 namespace WinFormsApp
 {
@@ -36,7 +37,9 @@ namespace WinFormsApp
 
         }
 
+#pragma warning disable CS8618 // Игнорирование поля item не допускаещего NULL (есть обработка)
         public NewIsotopeRelationForm(int relation_id)
+#pragma warning restore CS8618
         {
             InitializeComponent();
 
@@ -62,7 +65,8 @@ namespace WinFormsApp
                             icon: MessageBoxIcon.Error,
                             buttons: MessageBoxButtons.OK
                             );
-                Load += (s, e) => Close();
+                Load += (s, e) => Close(); // Добавление дополнительного обработчика, который закроет форму сразу после загрузки
+                                           // если редактируемая запись не найдена
                 return;
             }
 
@@ -199,6 +203,8 @@ namespace WinFormsApp
             try
             {
                 Density = float.Parse(densityBox.Text);
+                if (Density < 0)
+                    throw new FormatException();
                 densErrorLabel.Text = String.Empty;
                 densityValid = true;
                 densErrorLabel.Visible = false;
@@ -297,6 +303,11 @@ namespace WinFormsApp
         }
 
         private void isotopeBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void materialNameTextBox_TextChanged(object sender, EventArgs e)
         {
 
         }

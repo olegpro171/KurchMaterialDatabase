@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMain));
             contextMenuStrip1 = new ContextMenuStrip(components);
             menuStrip1 = new MenuStrip();
             connectionMenuItem = new ToolStripMenuItem();
@@ -42,6 +43,8 @@
             nameSearchLabel = new Label();
             tableSelectBox = new ComboBox();
             tableSelectLabel = new Label();
+            справкаToolStripMenuItem = new ToolStripMenuItem();
+            aboutToolStripMenuItem = new ToolStripMenuItem();
             menuStrip1.SuspendLayout();
             statusStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView).BeginInit();
@@ -56,7 +59,7 @@
             // menuStrip1
             // 
             menuStrip1.ImageScalingSize = new Size(20, 20);
-            menuStrip1.Items.AddRange(new ToolStripItem[] { connectionMenuItem, materialsToolStripMenuItem });
+            menuStrip1.Items.AddRange(new ToolStripItem[] { connectionMenuItem, materialsToolStripMenuItem, справкаToolStripMenuItem });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
             menuStrip1.Size = new Size(786, 24);
@@ -87,7 +90,7 @@
             // createToolStripMenuItem
             // 
             createToolStripMenuItem.Name = "createToolStripMenuItem";
-            createToolStripMenuItem.Size = new Size(180, 22);
+            createToolStripMenuItem.Size = new Size(117, 22);
             createToolStripMenuItem.Text = "Создать";
             createToolStripMenuItem.Click += createToolStripMenuItem_Click;
             // 
@@ -161,6 +164,20 @@
             tableSelectLabel.TabIndex = 8;
             tableSelectLabel.Text = "Таблица";
             // 
+            // справкаToolStripMenuItem
+            // 
+            справкаToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { aboutToolStripMenuItem });
+            справкаToolStripMenuItem.Name = "справкаToolStripMenuItem";
+            справкаToolStripMenuItem.Size = new Size(65, 20);
+            справкаToolStripMenuItem.Text = "Справка";
+            // 
+            // aboutToolStripMenuItem
+            // 
+            aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
+            aboutToolStripMenuItem.Size = new Size(180, 22);
+            aboutToolStripMenuItem.Text = "О программе";
+            aboutToolStripMenuItem.Click += aboutToolStripMenuItem_Click;
+            // 
             // FormMain
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -174,6 +191,8 @@
             Controls.Add(statusStrip);
             Controls.Add(menuStrip1);
             FormBorderStyle = FormBorderStyle.FixedSingle;
+            Icon = (Icon)resources.GetObject("$this.Icon");
+            MaximizeBox = false;
             Name = "FormMain";
             Text = "MD2";
             Load += FormMain_Load;
@@ -200,5 +219,7 @@
         private ToolStripMenuItem createToolStripMenuItem;
         private ComboBox tableSelectBox;
         private Label tableSelectLabel;
+        private ToolStripMenuItem справкаToolStripMenuItem;
+        private ToolStripMenuItem aboutToolStripMenuItem;
     }
 }
