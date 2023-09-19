@@ -14,7 +14,7 @@ namespace Backend
 
             isotopeManager.CreateTable();
 
-            var testList = isotopeManager.RelatedFuel(1);
+            //var testList = isotopeManager.RelatedFuel(1);
         }
         
 

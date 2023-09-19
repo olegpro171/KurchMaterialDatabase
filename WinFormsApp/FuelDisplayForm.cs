@@ -7,10 +7,16 @@ namespace WinFormsApp
 {
     public partial class FuelDisplayForm : Form
     {
+#pragma warning disable CS0169 // Поле "FuelDisplayForm.relatedIsotopes" никогда не используется.
         private Queryset<Isotope>? relatedIsotopes;
+#pragma warning restore CS0169 // Поле "FuelDisplayForm.relatedIsotopes" никогда не используется.
+#pragma warning disable CS0169 // Поле "FuelDisplayForm.uneditedItemWrapper" никогда не используется.
         private ObjectWrapper<Fuel>? uneditedItemWrapper;
+#pragma warning restore CS0169 // Поле "FuelDisplayForm.uneditedItemWrapper" никогда не используется.
         private Fuel item;
+#pragma warning disable CS0414 // Полю "FuelDisplayForm.isEditingObject" присвоено значение, но оно ни разу не использовано.
         private bool isEditingObject;
+#pragma warning restore CS0414 // Полю "FuelDisplayForm.isEditingObject" присвоено значение, но оно ни разу не использовано.
         private bool densityValid;
 
         private readonly string originalName;

@@ -1,10 +1,11 @@
 ﻿using Backend.Core;
 using Backend.Domain;
 using Backend.Variables;
+using Backend.Interfaces;
 
 namespace Backend.Managers
 {
-    public class FuelManager : BaseObjectManager<Fuel>
+    public class FuelManager : BaseObjectManager<Fuel>, IFuelManager
     {
         public FuelManager(DatabaseCore databaseCore) : base(databaseCore, TableNames.Fuel) { }
 
@@ -17,10 +18,10 @@ namespace Backend.Managers
         public Queryset<Isotope> RelatedIsotopes(int id)
         {
             string query = 
-@$"SELECT i.id, i.name, iif.amount, iif.id relation_id
-FROM {TableNames.Isotope} i
-INNER JOIN {TableNames.IsotopeInFuel} iif ON i.id = iif.id_1 
-WHERE iif.id_2 = {id}";
+                $"SELECT i.id, i.name, iif.amount, iif.id relation_id " +
+                $"FROM {TableNames.Isotope} i " +
+                $"INNER JOIN {TableNames.IsotopeInFuel} iif ON i.id = iif.id_1 " +
+                $"WHERE iif.id_2 = {id} ";
 
             return base.Related<Isotope>(query);
         }

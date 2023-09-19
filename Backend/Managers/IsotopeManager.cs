@@ -10,10 +10,11 @@ using Backend.Managers;
 using System.Data;
 using System.Xml.Linq;
 using Backend.Variables;
+using Backend.Interfaces;
 
 namespace Backend.Managers
 {
-    public class IsotopeManager : BaseObjectManager<Isotope>
+    public class IsotopeManager : BaseObjectManager<Isotope>, IIsotopeManager
     {
         public IsotopeManager(DatabaseCore databaseCore) : base(databaseCore, Variables.TableNames.Isotope)
         {
@@ -24,12 +25,18 @@ namespace Backend.Managers
             return base.Related<R>(query);
         }
 
-        public Queryset<Fuel> RelatedFuel(int id)
+        public override void Create(Isotope obj)
         {
-            string query = @$"SELECT fm.id, fm.color, fm.name, fm.description, fm.density, iif.amount
-                              FROM {TableNames.Fuel} fm
-                              INNER JOIN {TableNames.IsotopeInFuel} iif ON fm.id = iif.id_2
-                              WHERE iif.id_1 = {id}";
+            base.Create(obj);
+        }
+
+        public Queryset<Fuel> RelatedMaterials(int id)
+        {
+            string query = 
+                $"SELECT fm.id, fm.color, fm.name, fm.description, fm.density, iif.amount " +
+                $"FROM {TableNames.Fuel} fm " +
+                $"INNER JOIN {TableNames.IsotopeInFuel} iif ON fm.id = iif.id_2 " +
+                $"WHERE iif.id_1 = {id} ";
             return base.Related<Fuel>(query);
         }
     }

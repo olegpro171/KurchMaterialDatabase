@@ -2,7 +2,6 @@
 using Backend.Exceptions;
 using Backend.Managers;
 using System.Media;
-using System.Xml.Serialization;
 
 namespace WinFormsApp
 {
@@ -49,14 +48,28 @@ namespace WinFormsApp
 
             idEditing = relation_id;
 
-            item = dbConnector.IsotopeInFuelManager.Get(relation_id).Data.FirstOrDefault() ??
-                throw new Exception($"Record {relation_id} not found");
+            try
+            {
+                item = dbConnector.IsotopeInFuelManager.Get(relation_id).Data.FirstOrDefault();
+                if (item == null)
+                    throw new RecordNotFoundException();
+            }
+            catch (RecordNotFoundException)
+            {
+                MessageBox.Show(
+                            caption: "Редактируемое отношение не найдено",
+                            text: "Редактируемое отношение не найдено",
+                            icon: MessageBoxIcon.Error,
+                            buttons: MessageBoxButtons.OK
+                            );
+                Load += (s, e) => Close();
+                return;
+            }
 
             integrityCheck(); // will set iso and fuel fields
             if (fuel == null || iso == null) { throw new Exception("Undefined behavior"); }
 
             SetInitialValues();
-
         }
 
         private void NewIsotopeRelationForm_Load(object sender, EventArgs e)
@@ -215,6 +228,12 @@ namespace WinFormsApp
                 return;
             }
 
+            if (isotopeBox.Enabled && isotopeBox.SelectedIndex == -1)
+            {
+                SystemSounds.Beep.Play();
+                return;
+            }
+
             if (idEditing != null && item != null)
             {
                 item.Obj.Amount = Density;
@@ -228,8 +247,20 @@ namespace WinFormsApp
                 var selectedIsotopeID = allIsotopes.Data[isotopeBox.SelectedIndex].Id;
 
                 var newIIF = new IsotopeInFuel(selectedIsotopeID, fuel.Id, Density);
-                dbConnector.IsotopeInFuelManager.Create(newIIF);
-                Close();
+                try
+                {
+                    dbConnector.IsotopeInFuelManager.Create(newIIF);
+                    Close();
+                }
+                catch (DuplicateRelationException)
+                {
+                    MessageBox.Show(
+                        caption: "Отношение уже существует",
+                        text: $"Отношение изотопа {allIsotopes.Data[isotopeBox.SelectedIndex].Obj.Name} к материалу {fuel.Obj.Name} уже существует.",
+                        icon: MessageBoxIcon.Error,
+                        buttons: MessageBoxButtons.OK
+                        );
+                }
             }
         }
 
@@ -262,6 +293,11 @@ namespace WinFormsApp
                 dbConnector.IsotopeInFuelManager.Delete((int)idEditing);
                 Close();
             }
+        }
+
+        private void isotopeBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
