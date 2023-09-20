@@ -35,7 +35,11 @@
             connectionMenuItem = new ToolStripMenuItem();
             connectionDataMenuItem = new ToolStripMenuItem();
             materialsToolStripMenuItem = new ToolStripMenuItem();
-            createToolStripMenuItem = new ToolStripMenuItem();
+            updateTableTooStripMenuItem = new ToolStripMenuItem();
+            createMaterialToolStripMenuItem = new ToolStripMenuItem();
+            createIsotopeToolStripMenuItem = new ToolStripMenuItem();
+            справкаToolStripMenuItem = new ToolStripMenuItem();
+            aboutToolStripMenuItem = new ToolStripMenuItem();
             statusStrip = new StatusStrip();
             toolStripStatusLabel1 = new ToolStripStatusLabel();
             dataGridView = new DataGridView();
@@ -43,8 +47,6 @@
             nameSearchLabel = new Label();
             tableSelectBox = new ComboBox();
             tableSelectLabel = new Label();
-            справкаToolStripMenuItem = new ToolStripMenuItem();
-            aboutToolStripMenuItem = new ToolStripMenuItem();
             menuStrip1.SuspendLayout();
             statusStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView).BeginInit();
@@ -82,17 +84,45 @@
             // 
             // materialsToolStripMenuItem
             // 
-            materialsToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { createToolStripMenuItem });
+            materialsToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { updateTableTooStripMenuItem, createMaterialToolStripMenuItem, createIsotopeToolStripMenuItem });
             materialsToolStripMenuItem.Name = "materialsToolStripMenuItem";
-            materialsToolStripMenuItem.Size = new Size(83, 20);
-            materialsToolStripMenuItem.Text = "Материалы";
+            materialsToolStripMenuItem.Size = new Size(85, 20);
+            materialsToolStripMenuItem.Text = "Управление";
             // 
-            // createToolStripMenuItem
+            // updateTableTooStripMenuItem
             // 
-            createToolStripMenuItem.Name = "createToolStripMenuItem";
-            createToolStripMenuItem.Size = new Size(117, 22);
-            createToolStripMenuItem.Text = "Создать";
-            createToolStripMenuItem.Click += createToolStripMenuItem_Click;
+            updateTableTooStripMenuItem.Name = "updateTableTooStripMenuItem";
+            updateTableTooStripMenuItem.Size = new Size(180, 22);
+            updateTableTooStripMenuItem.Text = "Обновить таблицу";
+            updateTableTooStripMenuItem.Click += updateTableTooStripMenuItem_Click;
+            // 
+            // createMaterialToolStripMenuItem
+            // 
+            createMaterialToolStripMenuItem.Name = "createMaterialToolStripMenuItem";
+            createMaterialToolStripMenuItem.Size = new Size(180, 22);
+            createMaterialToolStripMenuItem.Text = "Создать материал";
+            createMaterialToolStripMenuItem.Click += createToolStripMenuItem_Click;
+            // 
+            // createIsotopeToolStripMenuItem
+            // 
+            createIsotopeToolStripMenuItem.Name = "createIsotopeToolStripMenuItem";
+            createIsotopeToolStripMenuItem.Size = new Size(180, 22);
+            createIsotopeToolStripMenuItem.Text = "Создать изотоп";
+            createIsotopeToolStripMenuItem.Click += createIsotopeToolStripMenuItem_Click;
+            // 
+            // справкаToolStripMenuItem
+            // 
+            справкаToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { aboutToolStripMenuItem });
+            справкаToolStripMenuItem.Name = "справкаToolStripMenuItem";
+            справкаToolStripMenuItem.Size = new Size(65, 20);
+            справкаToolStripMenuItem.Text = "Справка";
+            // 
+            // aboutToolStripMenuItem
+            // 
+            aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
+            aboutToolStripMenuItem.Size = new Size(149, 22);
+            aboutToolStripMenuItem.Text = "О программе";
+            aboutToolStripMenuItem.Click += aboutToolStripMenuItem_Click;
             // 
             // statusStrip
             // 
@@ -122,6 +152,7 @@
             dataGridView.ReadOnly = true;
             dataGridView.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.AutoSizeToDisplayedHeaders;
             dataGridView.RowTemplate.Height = 25;
+            dataGridView.ScrollBars = ScrollBars.Vertical;
             dataGridView.Size = new Size(762, 369);
             dataGridView.TabIndex = 4;
             dataGridView.CellClick += dataGridView_CellContentClick;
@@ -164,20 +195,6 @@
             tableSelectLabel.TabIndex = 8;
             tableSelectLabel.Text = "Таблица";
             // 
-            // справкаToolStripMenuItem
-            // 
-            справкаToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { aboutToolStripMenuItem });
-            справкаToolStripMenuItem.Name = "справкаToolStripMenuItem";
-            справкаToolStripMenuItem.Size = new Size(65, 20);
-            справкаToolStripMenuItem.Text = "Справка";
-            // 
-            // aboutToolStripMenuItem
-            // 
-            aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            aboutToolStripMenuItem.Size = new Size(180, 22);
-            aboutToolStripMenuItem.Text = "О программе";
-            aboutToolStripMenuItem.Click += aboutToolStripMenuItem_Click;
-            // 
             // FormMain
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -216,10 +233,12 @@
         private TextBox nameSearchTextBox;
         private Label nameSearchLabel;
         private ToolStripMenuItem materialsToolStripMenuItem;
-        private ToolStripMenuItem createToolStripMenuItem;
+        private ToolStripMenuItem createMaterialToolStripMenuItem;
         private ComboBox tableSelectBox;
         private Label tableSelectLabel;
         private ToolStripMenuItem справкаToolStripMenuItem;
         private ToolStripMenuItem aboutToolStripMenuItem;
+        private ToolStripMenuItem updateTableTooStripMenuItem;
+        private ToolStripMenuItem createIsotopeToolStripMenuItem;
     }
 }

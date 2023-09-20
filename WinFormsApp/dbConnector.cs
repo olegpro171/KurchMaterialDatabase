@@ -12,6 +12,7 @@ using System.Windows.Forms;
 using Backend.Domain;
 using Backend.Interfaces;
 using Backend.Factory;
+using static WinFormsApp.dbConnector;
 
 
 namespace WinFormsApp
@@ -91,36 +92,32 @@ namespace WinFormsApp
             }
         }
 
-        public static DataTable GetMainTable(Table table)
+        public static DataTable GetRelatedMaterialsTable(int isotopeID)
         {
             try
             {
-                if (table == Table.FuelMaterials)
-                {
-                    FuelManager.Filter("name", _searchString);
-                    _lastOperationSuccesful = true;
-                }
-
-                if (table == Table.Isotopes)
-                {
-                    IsotopeManager.Filter("name", _searchString);
-                    _lastOperationSuccesful = true;
-                }
-
+                IsotopeManager.RelatedMaterials(isotopeID);
+                _lastOperationSuccesful = true;
 
                 var responceTable = dbCore.ResponceTable;
 
-                try
-                {
-#pragma warning disable CS8602 // Игнорирование "вероятного разыменования пустой ссылки" (есть обработка)
-                    responceTable.Columns["color"].ColumnMapping = MappingType.Hidden;
-#pragma warning restore CS8602
-                }
-                catch (NullReferenceException) { }
+                var col = responceTable.Columns["id"];
+                if (col != null) col.ColumnMapping = MappingType.Hidden;
 
-                return responceTable;
+                col = responceTable.Columns["color"];
+                if (col != null) col.ColumnMapping = MappingType.Hidden;
 
-                throw new ArgumentException("Invalid argument");
+                col = responceTable.Columns["description"];
+                if (col != null) col.ColumnMapping = MappingType.Hidden;
+
+                col = responceTable.Columns["density"];
+                if (col != null) col.ColumnMapping = MappingType.Hidden;
+
+                col = responceTable.Columns["relation_id"];
+                if (col != null) col.ColumnMapping = MappingType.Hidden;
+
+
+                return PrepareTableFromResponceTable(responceTable);
             }
             catch (Npgsql.PostgresException ex)
             {
@@ -137,6 +134,52 @@ namespace WinFormsApp
             {
                 throw new InvalidOperationException("O02: Connection data was not provided", ex);
             }
+        }
+
+        public static DataTable GetMainTable(Table table)
+        {
+            try
+            {
+                if (table == Table.FuelMaterials)
+                {
+                    FuelManager.Filter("name", _searchString);
+                    _lastOperationSuccesful = true;
+                }
+
+                if (table == Table.Isotopes)
+                {
+                    IsotopeManager.Filter("name", _searchString);
+                    _lastOperationSuccesful = true;
+                }
+              
+                return PrepareTableFromResponceTable(dbCore.ResponceTable);
+            }
+            catch (Npgsql.PostgresException ex)
+            {
+                if (ex.Message.StartsWith("42P01:"))
+                {
+                    throw new InvalidOperationException("O01: Required relations abscent", ex);
+                }
+                else
+                {
+                    throw;
+                }
+            }
+            catch (ArgumentNullException ex)
+            {
+                throw new InvalidOperationException("O02: Connection data was not provided", ex);
+            }
+        }
+
+        private static DataTable PrepareTableFromResponceTable(DataTable responceTable)
+        {
+            var colorColumn = responceTable.Columns["color"];
+            if (colorColumn != null)
+            {
+                colorColumn.ColumnMapping = MappingType.Hidden;
+            }
+
+            return responceTable;
         }
 
         public static DataTable GetRelatedIsotopesTable(int fuelId)

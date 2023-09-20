@@ -11,6 +11,7 @@ using System.Data;
 using System.Xml.Linq;
 using Backend.Variables;
 using Backend.Interfaces;
+using System.Collections;
 
 namespace Backend.Managers
 {
@@ -33,11 +34,29 @@ namespace Backend.Managers
         public Queryset<Fuel> RelatedMaterials(int id)
         {
             string query = 
-                $"SELECT fm.id, fm.color, fm.name, fm.description, fm.density, iif.amount " +
+                $"SELECT fm.id, fm.color, fm.name, fm.description, fm.density, iif.amount, iif.id relation_id " +
                 $"FROM {TableNames.Fuel} fm " +
                 $"INNER JOIN {TableNames.IsotopeInFuel} iif ON fm.id = iif.id_2 " +
                 $"WHERE iif.id_1 = {id} ";
             return base.Related<Fuel>(query);
+        }
+
+        public override void Delete(int id)
+        {
+            string DeleteCascadeQuery =
+                $"delete from {TableNames.Fuel} " +
+                $"where id in ( " +
+                $"    SELECT fm.id  " +
+                $"    FROM {TableNames.Fuel} fm  " +
+                $"    INNER JOIN {TableNames.IsotopeInFuel} iif ON fm.id = iif.id_2 " +
+                $"    INNER JOIN {TableNames.Isotope} i on i.id = iif.id_1 " +
+                $"    WHERE i.id = {id})";
+
+            dbCore.OpenConnection();
+            dbCore.ExecuteSQL(DeleteCascadeQuery);
+            dbCore.CloseConnection();
+
+            base.Delete(id);
         }
     }
 }

@@ -8,7 +8,7 @@ namespace Backend.Interfaces
         public void Create(Fuel newObject);
         public Queryset<Fuel> Get(int id);
         public Queryset<Fuel> List();
-        public Queryset<Fuel> Filter<F>(string colName, F value);
+        public Queryset<Fuel> Filter<F>(string colName, F value, bool exact = false);
         public void Update(int id, Fuel newObject);
         public void Delete(int id);
         public Queryset<Isotope> RelatedIsotopes(int id);

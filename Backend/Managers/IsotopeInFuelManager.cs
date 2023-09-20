@@ -66,7 +66,7 @@ namespace Backend.Managers
             }
         }
 
-        public override Queryset<IsotopeInFuel> Filter<F>(string colName, F value)
+        public override Queryset<IsotopeInFuel> Filter<F>(string colName, F value, bool exact = false)
         {
             throw new InvalidOperationException();
         }

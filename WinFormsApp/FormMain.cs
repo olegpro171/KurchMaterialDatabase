@@ -75,12 +75,19 @@ namespace WinFormsApp
             {
                 dataGridView.DataSource = dbConnector.GetMainTable(SelectedTable);
                 dataGridView.Columns["id"].Width = 50;
-                dataGridView.Columns["name"].Width = 200;
-                dataGridView.Columns["density"].Width = 75;
-                dataGridView.Columns["name"].HeaderText = "Материал";
-                dataGridView.Columns["description"].HeaderText = "Описание";
-                dataGridView.Columns["density"].HeaderText = "Плотность";
 
+                if (SelectedTable == dbConnector.Table.FuelMaterials)
+                {
+                    dataGridView.Columns["name"].Width = 200;
+                    dataGridView.Columns["density"].Width = 75;
+                    dataGridView.Columns["name"].HeaderText = "Материал";
+                    dataGridView.Columns["description"].HeaderText = "Описание";
+                    dataGridView.Columns["density"].HeaderText = "Плотность";
+                }
+                else
+                {
+                    dataGridView.Columns["name"].HeaderText = "Изотоп";
+                }
             }
 
             catch (ArgumentException)
@@ -107,7 +114,8 @@ namespace WinFormsApp
         private void FormMain_Load(object sender, EventArgs e)
         {
             toolStripStatusLabel1.Text = "Укажите данные для подключения";
-            materialsToolStripMenuItem.Enabled = false;
+            createIsotopeToolStripMenuItem.Enabled = false;
+            createMaterialToolStripMenuItem.Enabled = false;
 
             //var postgres = Registry.CurrentUser.OpenSubKey(@"Software\pgadmin");
             //if (postgres == null)
@@ -129,11 +137,13 @@ namespace WinFormsApp
                     dbConnector.CreateTablesIfNotExist();
                     if (dbConnector.LastOperationSuccesful)
                     {
-                        materialsToolStripMenuItem.Enabled = true;
+                        createIsotopeToolStripMenuItem.Enabled = true;
+                        createMaterialToolStripMenuItem.Enabled = true;
                     }
                     else
                     {
-                        materialsToolStripMenuItem.Enabled = false;
+                        createIsotopeToolStripMenuItem.Enabled = false;
+                        createMaterialToolStripMenuItem.Enabled = false;
                     }
                 }
                 catch (InvalidConnectionDataException ex)
@@ -171,19 +181,21 @@ namespace WinFormsApp
             if (e.RowIndex < 0 || e.ColumnIndex < 0) { return; }
 
             var id = (int)dataGridView.Rows[e.RowIndex].Cells["id"].Value;
-            
-          
 
             try
             {
-                var detailWin;
-
                 if (SelectedTable == dbConnector.Table.FuelMaterials)
-                    detailWin = new FuelDisplayForm(id);
+                {
+                    var detailWin = new FuelDisplayForm(id);
+                    detailWin.ShowDialog();
+                    SelectedTable = dbConnector.Table.FuelMaterials;
+                }
                 else if (SelectedTable == dbConnector.Table.Isotopes)
-                    detailWin = new IsotopeDisplayForm(id);
-
-                detailWin.ShowDialog();
+                {
+                    var detailWin = new IsotopeDisplayForm(id);
+                    detailWin.ShowDialog();
+                    SelectedTable = dbConnector.Table.Isotopes;
+                }
                 UpdateDataGrid();
             }
             catch (RecordNotFoundException ex)
@@ -202,6 +214,8 @@ namespace WinFormsApp
         {
             var detailWin = new FuelDisplayForm();
             detailWin.ShowDialog();
+            if (detailWin.DialogResult == DialogResult.OK)
+                SelectedTable = dbConnector.Table.FuelMaterials;
             UpdateDataGrid();
         }
 
@@ -222,6 +236,20 @@ namespace WinFormsApp
             var aboutWin = new About();
 
             aboutWin.Show();
+        }
+
+        private void updateTableTooStripMenuItem_Click(object sender, EventArgs e)
+        {
+            UpdateDataGrid();
+        }
+
+        private void createIsotopeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var isotopeWin = new IsotopeDisplayForm();
+            isotopeWin.ShowDialog();
+            if (isotopeWin.DialogResult == DialogResult.OK) 
+                SelectedTable = dbConnector.Table.Isotopes;
+            UpdateDataGrid();
         }
     }
 }

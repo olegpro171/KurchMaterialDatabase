@@ -28,11 +28,12 @@ namespace Backend.Managers
 
         public override void Delete(int id)
         {
-            base.Delete(id);
             string query = $"DELETE FROM isotope_in_fuel WHERE id_2 = {id}";
             dbCore.OpenConnection();
             dbCore.ExecuteSQL(query);
             dbCore.CloseConnection();
+
+            base.Delete(id);
         }
     }
 }

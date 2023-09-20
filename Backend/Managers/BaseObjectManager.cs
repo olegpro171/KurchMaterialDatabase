@@ -104,7 +104,7 @@ namespace Backend.Managers
 
         public virtual Queryset<T> List()
         {
-            string query = $"SELECT * FROM {this.tableName}";
+            string query = $"SELECT * FROM {this.tableName} ORDER BY id";
             dbCore.OpenConnection();
             dbCore.ExecuteSQL(query);
             dbCore.CloseConnection();
@@ -194,13 +194,17 @@ namespace Backend.Managers
             dbCore.CloseConnection();
         }
 
-        public virtual Queryset<T> Filter<F>(string colName, F value)
+        public virtual Queryset<T> Filter<F>(string colName, F value, bool exact = false)
         {
             string query;
             switch (value)
             {
                 case string strValue:
-                    query = $"SELECT * FROM {tableName} WHERE LOWER({colName}) LIKE '%{strValue.ToLower()}%'";
+                    if (exact)
+                        query = $"SELECT * FROM {tableName} WHERE LOWER({colName}) = '{strValue.ToLower()}'";
+                    else
+                        query = $"SELECT * FROM {tableName} WHERE LOWER({colName}) LIKE '%{strValue.ToLower()}%'";
+
                     break;
 
                 case int intValue:
@@ -216,6 +220,7 @@ namespace Backend.Managers
                     throw new ArgumentException($"Type {typeof(F).FullName} not supported");
             }
 
+            query += " ORDER BY id";
             dbCore.OpenConnection();
             dbCore.ExecuteSQL(query);
             dbCore.CloseConnection();

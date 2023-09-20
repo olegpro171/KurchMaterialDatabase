@@ -31,10 +31,10 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(About));
             nameMainLabel = new Label();
             panel1 = new Panel();
+            label1 = new Label();
             closeButton = new Button();
             sourceLink = new LinkLabel();
             infoLabel1 = new Label();
-            label1 = new Label();
             panel1.SuspendLayout();
             SuspendLayout();
             // 
@@ -59,6 +59,16 @@
             panel1.Name = "panel1";
             panel1.Size = new Size(341, 302);
             panel1.TabIndex = 1;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Location = new Point(0, 287);
+            label1.Name = "label1";
+            label1.Size = new Size(85, 15);
+            label1.TabIndex = 2;
+            label1.Text = "v1.0 21.09.2023";
+            label1.Click += label1_Click;
             // 
             // closeButton
             // 
@@ -92,15 +102,6 @@
             infoLabel1.Size = new Size(328, 84);
             infoLabel1.TabIndex = 1;
             infoLabel1.Text = "Программа разработана в рамках тестового\r\nзадания для НИЦ \"Курчатовский Институт\"\r\n\r\nРазработчик: Олег Ярославович Прошкин\r\n";
-            // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Location = new Point(0, 287);
-            label1.Name = "label1";
-            label1.Size = new Size(85, 15);
-            label1.TabIndex = 2;
-            label1.Text = "v1.0 19.09.2023";
             // 
             // About
             // 
