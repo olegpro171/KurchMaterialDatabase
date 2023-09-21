@@ -42,8 +42,10 @@ namespace WinFormsApp
             cascade = new Queryset<Fuel>();
             cascadeGridView.Visible = false;
 
+            emptyCascadeLabel.Visible = true;
             emptyCascadeLabel.Text = "Связанные материалы отображаются после создания";
 
+            cascadeLabel.Visible = false;
         }
 
 #pragma warning disable CS8618 
@@ -60,10 +62,17 @@ namespace WinFormsApp
             cascade = dbConnector.IsotopeManager.RelatedMaterials((int)idEditing);
 
             if (cascade.Data.Count == 0)
+            {
+                cascadeLabel.Visible = false;
                 cascadeGridView.Visible = false;
+                emptyCascadeLabel.Visible = true;
+            }
             else
+            {
+                cascadeLabel.Visible = true;
                 cascadeGridView.Visible = true;
-
+                emptyCascadeLabel.Visible = false;
+            }
             try
             {
                 var wrapper = dbConnector.IsotopeManager.Get(id).Data.FirstOrDefault();
@@ -200,7 +209,7 @@ namespace WinFormsApp
         private void deleteButton_Click(object sender, EventArgs e)
         {
             if (idEditing == null) return;
-            
+
 
             if (cascadeGridView.Rows.Count > 0)
             {

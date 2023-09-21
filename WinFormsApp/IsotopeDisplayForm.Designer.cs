@@ -48,42 +48,45 @@
             // idLabel
             // 
             idLabel.AutoSize = true;
-            idLabel.Location = new Point(100, 12);
+            idLabel.Location = new Point(114, 16);
             idLabel.Name = "idLabel";
-            idLabel.Size = new Size(18, 15);
+            idLabel.Size = new Size(24, 20);
             idLabel.TabIndex = 0;
             idLabel.Text = "ID";
             // 
             // nameLabel
             // 
             nameLabel.AutoSize = true;
-            nameLabel.Location = new Point(12, 53);
+            nameLabel.Location = new Point(14, 71);
             nameLabel.Name = "nameLabel";
-            nameLabel.Size = new Size(106, 15);
+            nameLabel.Size = new Size(138, 20);
             nameLabel.TabIndex = 1;
             nameLabel.Text = "Название изотопа";
             // 
             // idTextBox
             // 
-            idTextBox.Location = new Point(124, 9);
+            idTextBox.Location = new Point(170, 12);
+            idTextBox.Margin = new Padding(3, 4, 3, 4);
             idTextBox.Name = "idTextBox";
             idTextBox.ReadOnly = true;
-            idTextBox.Size = new Size(223, 23);
+            idTextBox.Size = new Size(226, 27);
             idTextBox.TabIndex = 2;
             // 
             // nameTextBox
             // 
-            nameTextBox.Location = new Point(124, 50);
+            nameTextBox.Location = new Point(170, 67);
+            nameTextBox.Margin = new Padding(3, 4, 3, 4);
             nameTextBox.Name = "nameTextBox";
-            nameTextBox.Size = new Size(223, 23);
+            nameTextBox.Size = new Size(226, 27);
             nameTextBox.TabIndex = 3;
             nameTextBox.TextChanged += nameTextBox_TextChanged;
             // 
             // closeButton
             // 
-            closeButton.Location = new Point(12, 349);
+            closeButton.Location = new Point(14, 465);
+            closeButton.Margin = new Padding(3, 4, 3, 4);
             closeButton.Name = "closeButton";
-            closeButton.Size = new Size(115, 23);
+            closeButton.Size = new Size(131, 31);
             closeButton.TabIndex = 4;
             closeButton.Text = "Закрыть";
             closeButton.UseVisualStyleBackColor = true;
@@ -91,9 +94,10 @@
             // 
             // saveButton
             // 
-            saveButton.Location = new Point(232, 349);
+            saveButton.Location = new Point(265, 465);
+            saveButton.Margin = new Padding(3, 4, 3, 4);
             saveButton.Name = "saveButton";
-            saveButton.Size = new Size(115, 23);
+            saveButton.Size = new Size(131, 31);
             saveButton.TabIndex = 5;
             saveButton.Text = "Сохранить";
             saveButton.UseVisualStyleBackColor = true;
@@ -102,9 +106,10 @@
             // deleteButton
             // 
             deleteButton.ForeColor = Color.IndianRed;
-            deleteButton.Location = new Point(232, 320);
+            deleteButton.Location = new Point(265, 427);
+            deleteButton.Margin = new Padding(3, 4, 3, 4);
             deleteButton.Name = "deleteButton";
-            deleteButton.Size = new Size(115, 23);
+            deleteButton.Size = new Size(131, 31);
             deleteButton.TabIndex = 6;
             deleteButton.Text = "Удалить изотоп";
             deleteButton.UseVisualStyleBackColor = true;
@@ -112,10 +117,12 @@
             // 
             // statusStrip
             // 
+            statusStrip.ImageScalingSize = new Size(20, 20);
             statusStrip.Items.AddRange(new ToolStripItem[] { statusLabel });
-            statusStrip.Location = new Point(0, 375);
+            statusStrip.Location = new Point(0, 503);
             statusStrip.Name = "statusStrip";
-            statusStrip.Size = new Size(359, 22);
+            statusStrip.Padding = new Padding(1, 0, 16, 0);
+            statusStrip.Size = new Size(410, 26);
             statusStrip.SizingGrip = false;
             statusStrip.TabIndex = 7;
             statusStrip.Text = "statusStrip1";
@@ -124,15 +131,15 @@
             // 
             statusLabel.ForeColor = Color.IndianRed;
             statusLabel.Name = "statusLabel";
-            statusLabel.Size = new Size(66, 17);
+            statusLabel.Size = new Size(83, 20);
             statusLabel.Text = "statusLabel";
             // 
             // cascadeLabel
             // 
             cascadeLabel.AutoSize = true;
-            cascadeLabel.Location = new Point(12, 89);
+            cascadeLabel.Location = new Point(14, 119);
             cascadeLabel.Name = "cascadeLabel";
-            cascadeLabel.Size = new Size(108, 15);
+            cascadeLabel.Size = new Size(139, 20);
             cascadeLabel.TabIndex = 8;
             cascadeLabel.Text = "Каскад изменений";
             // 
@@ -143,31 +150,32 @@
             cascadeGridView.AllowUserToResizeRows = false;
             cascadeGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             cascadeGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            cascadeGridView.Location = new Point(12, 107);
+            cascadeGridView.Location = new Point(14, 143);
+            cascadeGridView.Margin = new Padding(3, 4, 3, 4);
             cascadeGridView.Name = "cascadeGridView";
             cascadeGridView.ReadOnly = true;
             cascadeGridView.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.AutoSizeToDisplayedHeaders;
             cascadeGridView.RowTemplate.Height = 25;
-            cascadeGridView.Size = new Size(335, 207);
+            cascadeGridView.Size = new Size(383, 276);
             cascadeGridView.TabIndex = 9;
             // 
             // emptyCascadeLabel
             // 
-            emptyCascadeLabel.AutoSize = true;
-            emptyCascadeLabel.Location = new Point(30, 203);
+            emptyCascadeLabel.Dock = DockStyle.Fill;
+            emptyCascadeLabel.Location = new Point(0, 0);
             emptyCascadeLabel.Name = "emptyCascadeLabel";
-            emptyCascadeLabel.Size = new Size(301, 15);
+            emptyCascadeLabel.Size = new Size(410, 529);
             emptyCascadeLabel.TabIndex = 10;
             emptyCascadeLabel.Text = "Отсутсвтуют материалы, связанные с этим изотопом";
+            emptyCascadeLabel.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // IsotopeDisplayForm
             // 
             AcceptButton = saveButton;
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             CancelButton = closeButton;
-            ClientSize = new Size(359, 397);
-            Controls.Add(cascadeGridView);
+            ClientSize = new Size(410, 529);
             Controls.Add(cascadeLabel);
             Controls.Add(statusStrip);
             Controls.Add(deleteButton);
@@ -177,9 +185,11 @@
             Controls.Add(idTextBox);
             Controls.Add(nameLabel);
             Controls.Add(idLabel);
+            Controls.Add(cascadeGridView);
             Controls.Add(emptyCascadeLabel);
             FormBorderStyle = FormBorderStyle.FixedSingle;
             Icon = (Icon)resources.GetObject("$this.Icon");
+            Margin = new Padding(3, 4, 3, 4);
             MaximizeBox = false;
             Name = "IsotopeDisplayForm";
             Text = "Изотоп";

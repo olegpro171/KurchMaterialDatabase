@@ -79,7 +79,7 @@ namespace WinFormsApp
                 if (SelectedTable == dbConnector.Table.FuelMaterials)
                 {
                     dataGridView.Columns["name"].Width = 200;
-                    dataGridView.Columns["density"].Width = 75;
+                    dataGridView.Columns["density"].Width = 150;
                     dataGridView.Columns["name"].HeaderText = "Материал";
                     dataGridView.Columns["description"].HeaderText = "Описание";
                     dataGridView.Columns["density"].HeaderText = "Плотность";
