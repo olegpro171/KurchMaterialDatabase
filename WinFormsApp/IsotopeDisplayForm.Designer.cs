@@ -47,21 +47,21 @@
             // 
             // idLabel
             // 
-            idLabel.AutoSize = true;
-            idLabel.Location = new Point(114, 16);
+            idLabel.Location = new Point(65, 15);
             idLabel.Name = "idLabel";
-            idLabel.Size = new Size(24, 20);
+            idLabel.Size = new Size(80, 24);
             idLabel.TabIndex = 0;
             idLabel.Text = "ID";
+            idLabel.TextAlign = ContentAlignment.TopRight;
             // 
             // nameLabel
             // 
-            nameLabel.AutoSize = true;
             nameLabel.Location = new Point(14, 71);
             nameLabel.Name = "nameLabel";
             nameLabel.Size = new Size(138, 20);
             nameLabel.TabIndex = 1;
             nameLabel.Text = "Название изотопа";
+            nameLabel.TextAlign = ContentAlignment.TopRight;
             // 
             // idTextBox
             // 

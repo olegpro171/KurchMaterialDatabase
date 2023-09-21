@@ -46,35 +46,37 @@
             // idLabel
             // 
             idLabel.AutoSize = true;
-            idLabel.Location = new Point(12, 9);
+            idLabel.Location = new Point(14, 12);
             idLabel.Name = "idLabel";
-            idLabel.Size = new Size(18, 15);
+            idLabel.Size = new Size(24, 20);
             idLabel.TabIndex = 0;
             idLabel.Text = "ID";
             // 
             // materialNameLabel
             // 
             materialNameLabel.AutoSize = true;
-            materialNameLabel.Location = new Point(118, 9);
+            materialNameLabel.Location = new Point(135, 12);
             materialNameLabel.Name = "materialNameLabel";
-            materialNameLabel.Size = new Size(62, 15);
+            materialNameLabel.Size = new Size(78, 20);
             materialNameLabel.TabIndex = 1;
             materialNameLabel.Text = "Материал";
             // 
             // materialIdTextBox
             // 
-            materialIdTextBox.Location = new Point(12, 27);
+            materialIdTextBox.Location = new Point(14, 36);
+            materialIdTextBox.Margin = new Padding(3, 4, 3, 4);
             materialIdTextBox.Name = "materialIdTextBox";
             materialIdTextBox.ReadOnly = true;
-            materialIdTextBox.Size = new Size(100, 23);
+            materialIdTextBox.Size = new Size(114, 27);
             materialIdTextBox.TabIndex = 100;
             // 
             // materialNameTextBox
             // 
-            materialNameTextBox.Location = new Point(118, 27);
+            materialNameTextBox.Location = new Point(135, 36);
+            materialNameTextBox.Margin = new Padding(3, 4, 3, 4);
             materialNameTextBox.Name = "materialNameTextBox";
             materialNameTextBox.ReadOnly = true;
-            materialNameTextBox.Size = new Size(164, 23);
+            materialNameTextBox.Size = new Size(187, 27);
             materialNameTextBox.TabIndex = 200;
             materialNameTextBox.TextChanged += materialNameTextBox_TextChanged;
             // 
@@ -83,43 +85,45 @@
             isotopeBox.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
             isotopeBox.AutoCompleteSource = AutoCompleteSource.ListItems;
             isotopeBox.FormattingEnabled = true;
-            isotopeBox.Location = new Point(12, 81);
+            isotopeBox.Location = new Point(14, 108);
+            isotopeBox.Margin = new Padding(3, 4, 3, 4);
             isotopeBox.Name = "isotopeBox";
-            isotopeBox.Size = new Size(270, 23);
+            isotopeBox.Size = new Size(308, 28);
             isotopeBox.TabIndex = 300;
             isotopeBox.SelectedIndexChanged += isotopeBox_SelectedIndexChanged;
             // 
             // isotopeLabel
             // 
             isotopeLabel.AutoSize = true;
-            isotopeLabel.Location = new Point(12, 63);
+            isotopeLabel.Location = new Point(14, 84);
             isotopeLabel.Name = "isotopeLabel";
-            isotopeLabel.Size = new Size(47, 15);
+            isotopeLabel.Size = new Size(60, 20);
             isotopeLabel.TabIndex = 5;
             isotopeLabel.Text = "Изотоп";
             // 
             // densityBox
             // 
-            densityBox.Location = new Point(94, 110);
+            densityBox.Location = new Point(117, 147);
+            densityBox.Margin = new Padding(3, 4, 3, 4);
             densityBox.Name = "densityBox";
-            densityBox.Size = new Size(189, 23);
+            densityBox.Size = new Size(205, 27);
             densityBox.TabIndex = 400;
             densityBox.TextChanged += densityBox_TextChanged;
             // 
             // concLabel
             // 
-            concLabel.AutoSize = true;
-            concLabel.Location = new Point(12, 113);
+            concLabel.Location = new Point(14, 151);
             concLabel.Name = "concLabel";
-            concLabel.Size = new Size(76, 15);
+            concLabel.Size = new Size(111, 27);
             concLabel.TabIndex = 7;
             concLabel.Text = "Содержание";
             // 
             // closeButton
             // 
-            closeButton.Location = new Point(12, 188);
+            closeButton.Location = new Point(14, 251);
+            closeButton.Margin = new Padding(3, 4, 3, 4);
             closeButton.Name = "closeButton";
-            closeButton.Size = new Size(100, 23);
+            closeButton.Size = new Size(114, 31);
             closeButton.TabIndex = 600;
             closeButton.Text = "Закрыть";
             closeButton.UseVisualStyleBackColor = true;
@@ -127,9 +131,10 @@
             // 
             // addButton
             // 
-            addButton.Location = new Point(185, 188);
+            addButton.Location = new Point(211, 251);
+            addButton.Margin = new Padding(3, 4, 3, 4);
             addButton.Name = "addButton";
-            addButton.Size = new Size(95, 23);
+            addButton.Size = new Size(109, 31);
             addButton.TabIndex = 500;
             addButton.Text = "Добавить";
             addButton.UseVisualStyleBackColor = true;
@@ -138,11 +143,10 @@
             // densErrorLabel
             // 
             densErrorLabel.Anchor = AnchorStyles.Right;
-            densErrorLabel.AutoSize = true;
             densErrorLabel.ForeColor = Color.Red;
-            densErrorLabel.Location = new Point(96, 134);
+            densErrorLabel.Location = new Point(14, 179);
             densErrorLabel.Name = "densErrorLabel";
-            densErrorLabel.Size = new Size(165, 15);
+            densErrorLabel.Size = new Size(308, 29);
             densErrorLabel.TabIndex = 10;
             densErrorLabel.Text = "Ведите корректное значение";
             densErrorLabel.TextAlign = ContentAlignment.TopRight;
@@ -150,9 +154,10 @@
             // deleteButton
             // 
             deleteButton.ForeColor = Color.IndianRed;
-            deleteButton.Location = new Point(185, 159);
+            deleteButton.Location = new Point(211, 212);
+            deleteButton.Margin = new Padding(3, 4, 3, 4);
             deleteButton.Name = "deleteButton";
-            deleteButton.Size = new Size(97, 23);
+            deleteButton.Size = new Size(111, 31);
             deleteButton.TabIndex = 700;
             deleteButton.Text = "Удалить";
             deleteButton.UseVisualStyleBackColor = true;
@@ -161,10 +166,10 @@
             // NewIsotopeRelationForm
             // 
             AcceptButton = addButton;
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             CancelButton = closeButton;
-            ClientSize = new Size(296, 221);
+            ClientSize = new Size(338, 295);
             Controls.Add(deleteButton);
             Controls.Add(densErrorLabel);
             Controls.Add(addButton);
@@ -179,6 +184,7 @@
             Controls.Add(idLabel);
             FormBorderStyle = FormBorderStyle.FixedSingle;
             Icon = (Icon)resources.GetObject("$this.Icon");
+            Margin = new Padding(3, 4, 3, 4);
             MaximizeBox = false;
             Name = "NewIsotopeRelationForm";
             Text = "Изотоп";

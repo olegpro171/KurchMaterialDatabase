@@ -9,7 +9,7 @@ namespace WinFormsApp
     public partial class NewIsotopeRelationForm : Form
     {
         private ObjectWrapper<IsotopeInFuel>? item;
-        private ObjectWrapper<Fuel> fuel;
+        private ObjectWrapper<Fuel>? fuel;
         private ObjectWrapper<Isotope>? iso;
 
         private Queryset<Isotope> allIsotopes;
@@ -30,16 +30,14 @@ namespace WinFormsApp
             densityValid = false;
 
             fuel = dbConnector.FuelManager.Get(fuelId).Data.FirstOrDefault() ??
-                throw new Exception("Invalid ID");
+                throw new RecordNotFoundException("Invalid ID");
 
             allIsotopes = dbConnector.IsotopeManager.List();
             SetInitialValuesCreate();
         }
 
 
-#pragma warning disable CS8618 // Игнорирование поля item не допускаещего NULL (есть обработка)
         public NewIsotopeRelationForm(int relation_id)
-#pragma warning restore CS8618
         {
             InitializeComponent();
 
